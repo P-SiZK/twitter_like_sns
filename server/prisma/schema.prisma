@@ -1,0 +1,88 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String     @id @unique
+  createdAt DateTime   @default(now())
+  name      String
+  profile   Profile?
+  tweets    Tweet[]
+  retweets  Retweet[]
+  favorites Favorite[]
+  following Follow[]   @relation("following")
+  follower  Follow[]   @relation("follower")
+  Timeline  Timeline[]
+}
+
+model Profile {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  bio       String?
+  location  String?
+  url       String?
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+}
+
+model Tweet {
+  id        String     @id @default(cuid())
+  createdAt DateTime   @default(now())
+  content   String     @db.VarChar(140)
+  author    User       @relation(fields: [authorId], references: [id])
+  authorId  String
+  retweet   Retweet[]
+  favorite  Favorite[]
+  Timeline  Timeline[]
+}
+
+model Retweet {
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  retweetUser   User     @relation(fields: [retweetUserId], references: [id])
+  retweetUserId String
+  tweet         Tweet    @relation(fields: [tweetId], references: [id])
+  tweetId       String
+
+  @@unique([retweetUserId, tweetId])
+}
+
+model Favorite {
+  id             Int      @id @default(autoincrement())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  favoriteUser   User     @relation(fields: [favoriteUserId], references: [id])
+  favoriteUserId String
+  tweet          Tweet    @relation(fields: [tweetId], references: [id])
+  tweetId        String
+
+  @@unique([tweetId, favoriteUserId])
+}
+
+model Follow {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  following   User     @relation("following", fields: [followingId], references: [id])
+  followingId String
+  follower    User     @relation("follower", fields: [followerId], references: [id])
+  followerId  String
+
+  @@unique([followingId, followerId])
+}
+
+model Timeline {
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+  tweetId   String   @id
+
+  @@unique([userId, tweetId])
+}

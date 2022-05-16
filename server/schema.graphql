@@ -1,0 +1,89 @@
+type Query {
+  getUser(id: String!): User
+  getProfile(userId: String!): Profile
+  getTweets(authorId: String): [Tweet!]!
+  getFollowers(followingId: String!): [Follow!]!
+  getFollowings(followerId: String!): [Follow!]!
+  getTimelines: [Timeline!]!
+}
+
+type Mutation {
+  createUser(name: String!): User!
+  createTweet(content: String!): Tweet!
+  createFollow(followingId: String!): Follow!
+  deleteFollow(followingId: String!): Follow!
+}
+
+type User {
+  id: String!
+  createdAt: DateTime!
+  name: String!
+  profile: Profile
+  tweets: [Tweet]
+  retweets: [Retweet]
+  favorites: [Favorite]
+  following: [Follow]
+  follower: [Follow]
+  Timeline: [Timeline]
+}
+
+type Profile {
+  id: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  bio: String
+  location: String
+  url: String
+  user: User!
+  userId: String!
+}
+
+type Tweet {
+  id: String!
+  createdAt: DateTime!
+  content: String!
+  author: User!
+  authorId: String!
+  retweet: [Retweet]
+  favorite: [Favorite]
+  Timeline: [Timeline]
+}
+
+type Retweet {
+  id: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  retweetUser: User!
+  retweetUserId: String!
+  tweet: Tweet!
+  tweetId: String!
+}
+
+type Favorite {
+  id: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  favoriteUser: User!
+  favoriteUserId: String!
+  tweet: Tweet!
+  tweetId: String!
+}
+
+type Follow {
+  id: Int!
+  createdAt: DateTime!
+  following: User!
+  followingId: String!
+  follower: User!
+  followerId: String!
+}
+
+type Timeline {
+  createdAt: DateTime!
+  user: User!
+  userId: String!
+  tweet: Tweet!
+  tweetId: String!
+}
+
+scalar DateTime

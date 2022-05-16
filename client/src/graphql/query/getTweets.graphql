@@ -1,0 +1,23 @@
+query GetTweets($authorId: String) {
+  getTweets(authorId: $authorId) {
+    id
+    createdAt
+    content
+    author {
+      name
+    }
+    authorId
+    retweet {
+      retweetUser {
+        id
+        name
+      }
+    }
+    favorite {
+      favoriteUser {
+        id
+        name
+      }
+    }
+  }
+}
