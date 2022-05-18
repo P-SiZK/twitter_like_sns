@@ -79,6 +79,7 @@ export type Profile = {
 
 export type Query = {
   __typename?: 'Query';
+  getAllTweets: Array<Tweet>;
   getFollowers: Array<Follow>;
   getFollowings: Array<Follow>;
   getProfile?: Maybe<Profile>;
@@ -104,7 +105,7 @@ export type QueryGetProfileArgs = {
 
 
 export type QueryGetTweetsArgs = {
-  authorId?: InputMaybe<Scalars['String']>;
+  authorId: Scalars['String'];
 };
 
 
@@ -305,11 +306,12 @@ export type ProfileResolvers<ContextType = Context, ParentType extends Resolvers
 }>;
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  getAllTweets?: Resolver<Array<ResolversTypes['Tweet']>, ParentType, ContextType>;
   getFollowers?: Resolver<Array<ResolversTypes['Follow']>, ParentType, ContextType, RequireFields<QueryGetFollowersArgs, 'followingId'>>;
   getFollowings?: Resolver<Array<ResolversTypes['Follow']>, ParentType, ContextType, RequireFields<QueryGetFollowingsArgs, 'followerId'>>;
   getProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<QueryGetProfileArgs, 'userId'>>;
   getTimelines?: Resolver<Array<ResolversTypes['Timeline']>, ParentType, ContextType>;
-  getTweets?: Resolver<Array<ResolversTypes['Tweet']>, ParentType, ContextType, Partial<QueryGetTweetsArgs>>;
+  getTweets?: Resolver<Array<ResolversTypes['Tweet']>, ParentType, ContextType, RequireFields<QueryGetTweetsArgs, 'authorId'>>;
   getUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserArgs, 'id'>>;
 }>;
 

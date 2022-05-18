@@ -3,12 +3,12 @@ import { Helmet } from "react-helmet-async";
 import styled from "styled-components";
 import { TweetComposeBox } from "./tweetComposeBox";
 import { TweetItems } from "./tweetItems";
-import { useGetTweetsQuery } from "../generated/graphql";
+import { useGetAllTweetsQuery } from "../generated/graphql";
 
 export const Home: React.FC = () => {
-  const [{ data, error }] = useGetTweetsQuery();
+  const [{ data, error }] = useGetAllTweetsQuery();
   if (error) throw new Error(error.message);
-  const tweets = data?.getTweets;
+  const tweets = data?.getAllTweets;
 
   return (
     <>

@@ -1,5 +1,5 @@
-query GetTweets($authorId: String!) {
-  getTweets(authorId: $authorId) {
+query GetAllTweets {
+  getAllTweets {
     id
     createdAt
     content
