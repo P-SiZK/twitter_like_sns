@@ -1,4 +1,4 @@
-query GetProfile($userId: String!) {
+query GetProfile($userId: String) {
   getProfile(userId: $userId) {
     bio
     location

@@ -3,14 +3,23 @@ import { QueryResolvers } from "../../types/generated/graphql";
 
 export const getFollowings: QueryResolvers["getFollowings"] = async (
   _parent,
-  args
+  args,
+  context
 ) => {
+  let { followerId } = args;
+
+  if (!followerId) {
+    const { account } = context;
+    if (account === undefined) throw new Error("Authentication Error");
+    followerId = account.id;
+  }
+
   const tweets = await prisma.follow.findMany({
     orderBy: {
       createdAt: "desc",
     },
     where: {
-      followerId: args.followerId,
+      followerId,
     },
     include: {
       following: true,

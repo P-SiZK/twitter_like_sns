@@ -1,4 +1,4 @@
-query GetTweets($authorId: String!) {
+query GetTweets($authorId: String) {
   getTweets(authorId: $authorId) {
     id
     createdAt

@@ -6,12 +6,17 @@ export const getUser: QueryResolvers["getUser"] = async (
   args,
   context
 ) => {
-  const { account } = context;
-  if (account === undefined) throw new Error("Authentication Error");
+  let { id } = args;
+
+  if (!id) {
+    const { account } = context;
+    if (account === undefined) throw new Error("Authentication Error");
+    id = account.id;
+  }
 
   const user = await prisma.user.findUnique({
     where: {
-      id: args.id,
+      id,
     },
   });
   return user;

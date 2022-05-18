@@ -86,27 +86,27 @@ export type Query = {
 
 
 export type QueryGetFollowersArgs = {
-  followingId: Scalars['String'];
+  followingId?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryGetFollowingsArgs = {
-  followerId: Scalars['String'];
+  followerId?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryGetProfileArgs = {
-  userId: Scalars['String'];
+  userId?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryGetTweetsArgs = {
-  authorId: Scalars['String'];
+  authorId?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryGetUserArgs = {
-  id: Scalars['String'];
+  id?: InputMaybe<Scalars['String']>;
 };
 
 export type Retweet = {
@@ -185,21 +185,21 @@ export type GetAllTweetsQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetAllTweetsQuery = { getAllTweets: Array<{ id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet?: Array<{ retweetUser: { id: string, name: string } } | null> | null, favorite?: Array<{ favoriteUser: { id: string, name: string } } | null> | null }> };
 
 export type GetFollowersQueryVariables = Exact<{
-  followingId: Scalars['String'];
+  followingId?: InputMaybe<Scalars['String']>;
 }>;
 
 
 export type GetFollowersQuery = { getFollowers: Array<{ followerId: string, follower: { name: string } }> };
 
 export type GetFollowingsQueryVariables = Exact<{
-  followerId: Scalars['String'];
+  followerId?: InputMaybe<Scalars['String']>;
 }>;
 
 
 export type GetFollowingsQuery = { getFollowings: Array<{ followingId: string, following: { name: string } }> };
 
 export type GetProfileQueryVariables = Exact<{
-  userId: Scalars['String'];
+  userId?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -211,14 +211,14 @@ export type GetTimelinesQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetTimelinesQuery = { getTimelines: Array<{ createdAt: any, userId: string, user: { name: string }, tweet: { id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet?: Array<{ retweetUser: { id: string, name: string } } | null> | null, favorite?: Array<{ favoriteUser: { id: string, name: string } } | null> | null } }> };
 
 export type GetTweetsQueryVariables = Exact<{
-  authorId: Scalars['String'];
+  authorId?: InputMaybe<Scalars['String']>;
 }>;
 
 
 export type GetTweetsQuery = { getTweets: Array<{ id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet?: Array<{ retweetUser: { id: string, name: string } } | null> | null, favorite?: Array<{ favoriteUser: { id: string, name: string } } | null> | null }> };
 
 export type GetUserQueryVariables = Exact<{
-  id: Scalars['String'];
+  id?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -304,7 +304,7 @@ export function useGetAllTweetsQuery(options?: Omit<Urql.UseQueryArgs<GetAllTwee
   return Urql.useQuery<GetAllTweetsQuery>({ query: GetAllTweetsDocument, ...options });
 };
 export const GetFollowersDocument = gql`
-    query GetFollowers($followingId: String!) {
+    query GetFollowers($followingId: String) {
   getFollowers(followingId: $followingId) {
     follower {
       name
@@ -314,11 +314,11 @@ export const GetFollowersDocument = gql`
 }
     `;
 
-export function useGetFollowersQuery(options: Omit<Urql.UseQueryArgs<GetFollowersQueryVariables>, 'query'>) {
+export function useGetFollowersQuery(options?: Omit<Urql.UseQueryArgs<GetFollowersQueryVariables>, 'query'>) {
   return Urql.useQuery<GetFollowersQuery>({ query: GetFollowersDocument, ...options });
 };
 export const GetFollowingsDocument = gql`
-    query GetFollowings($followerId: String!) {
+    query GetFollowings($followerId: String) {
   getFollowings(followerId: $followerId) {
     following {
       name
@@ -328,11 +328,11 @@ export const GetFollowingsDocument = gql`
 }
     `;
 
-export function useGetFollowingsQuery(options: Omit<Urql.UseQueryArgs<GetFollowingsQueryVariables>, 'query'>) {
+export function useGetFollowingsQuery(options?: Omit<Urql.UseQueryArgs<GetFollowingsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetFollowingsQuery>({ query: GetFollowingsDocument, ...options });
 };
 export const GetProfileDocument = gql`
-    query GetProfile($userId: String!) {
+    query GetProfile($userId: String) {
   getProfile(userId: $userId) {
     bio
     location
@@ -341,7 +341,7 @@ export const GetProfileDocument = gql`
 }
     `;
 
-export function useGetProfileQuery(options: Omit<Urql.UseQueryArgs<GetProfileQueryVariables>, 'query'>) {
+export function useGetProfileQuery(options?: Omit<Urql.UseQueryArgs<GetProfileQueryVariables>, 'query'>) {
   return Urql.useQuery<GetProfileQuery>({ query: GetProfileDocument, ...options });
 };
 export const GetTimelinesDocument = gql`
@@ -381,7 +381,7 @@ export function useGetTimelinesQuery(options?: Omit<Urql.UseQueryArgs<GetTimelin
   return Urql.useQuery<GetTimelinesQuery>({ query: GetTimelinesDocument, ...options });
 };
 export const GetTweetsDocument = gql`
-    query GetTweets($authorId: String!) {
+    query GetTweets($authorId: String) {
   getTweets(authorId: $authorId) {
     id
     createdAt
@@ -406,11 +406,11 @@ export const GetTweetsDocument = gql`
 }
     `;
 
-export function useGetTweetsQuery(options: Omit<Urql.UseQueryArgs<GetTweetsQueryVariables>, 'query'>) {
+export function useGetTweetsQuery(options?: Omit<Urql.UseQueryArgs<GetTweetsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetTweetsQuery>({ query: GetTweetsDocument, ...options });
 };
 export const GetUserDocument = gql`
-    query GetUser($id: String!) {
+    query GetUser($id: String) {
   getUser(id: $id) {
     id
     name
@@ -418,6 +418,6 @@ export const GetUserDocument = gql`
 }
     `;
 
-export function useGetUserQuery(options: Omit<Urql.UseQueryArgs<GetUserQueryVariables>, 'query'>) {
+export function useGetUserQuery(options?: Omit<Urql.UseQueryArgs<GetUserQueryVariables>, 'query'>) {
   return Urql.useQuery<GetUserQuery>({ query: GetUserDocument, ...options });
 };

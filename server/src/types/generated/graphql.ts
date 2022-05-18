@@ -90,27 +90,27 @@ export type Query = {
 
 
 export type QueryGetFollowersArgs = {
-  followingId: Scalars['String'];
+  followingId?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryGetFollowingsArgs = {
-  followerId: Scalars['String'];
+  followerId?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryGetProfileArgs = {
-  userId: Scalars['String'];
+  userId?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryGetTweetsArgs = {
-  authorId: Scalars['String'];
+  authorId?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryGetUserArgs = {
-  id: Scalars['String'];
+  id?: InputMaybe<Scalars['String']>;
 };
 
 export type Retweet = {
@@ -307,12 +307,12 @@ export type ProfileResolvers<ContextType = Context, ParentType extends Resolvers
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   getAllTweets?: Resolver<Array<ResolversTypes['Tweet']>, ParentType, ContextType>;
-  getFollowers?: Resolver<Array<ResolversTypes['Follow']>, ParentType, ContextType, RequireFields<QueryGetFollowersArgs, 'followingId'>>;
-  getFollowings?: Resolver<Array<ResolversTypes['Follow']>, ParentType, ContextType, RequireFields<QueryGetFollowingsArgs, 'followerId'>>;
-  getProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<QueryGetProfileArgs, 'userId'>>;
+  getFollowers?: Resolver<Array<ResolversTypes['Follow']>, ParentType, ContextType, Partial<QueryGetFollowersArgs>>;
+  getFollowings?: Resolver<Array<ResolversTypes['Follow']>, ParentType, ContextType, Partial<QueryGetFollowingsArgs>>;
+  getProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, Partial<QueryGetProfileArgs>>;
   getTimelines?: Resolver<Array<ResolversTypes['Timeline']>, ParentType, ContextType>;
-  getTweets?: Resolver<Array<ResolversTypes['Tweet']>, ParentType, ContextType, RequireFields<QueryGetTweetsArgs, 'authorId'>>;
-  getUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserArgs, 'id'>>;
+  getTweets?: Resolver<Array<ResolversTypes['Tweet']>, ParentType, ContextType, Partial<QueryGetTweetsArgs>>;
+  getUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, Partial<QueryGetUserArgs>>;
 }>;
 
 export type RetweetResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Retweet'] = ResolversParentTypes['Retweet']> = ResolversObject<{

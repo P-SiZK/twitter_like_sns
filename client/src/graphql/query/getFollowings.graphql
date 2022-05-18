@@ -1,4 +1,4 @@
-query GetFollowings($followerId: String!) {
+query GetFollowings($followerId: String) {
   getFollowings(followerId: $followerId) {
     following {
       name

@@ -1,10 +1,10 @@
 type Query {
-  getUser(id: String!): User
-  getProfile(userId: String!): Profile
-  getTweets(authorId: String!): [Tweet!]!
+  getUser(id: String): User
+  getProfile(userId: String): Profile
+  getTweets(authorId: String): [Tweet!]!
   getAllTweets: [Tweet!]!
-  getFollowers(followingId: String!): [Follow!]!
-  getFollowings(followerId: String!): [Follow!]!
+  getFollowers(followingId: String): [Follow!]!
+  getFollowings(followerId: String): [Follow!]!
   getTimelines: [Timeline!]!
 }
 
