@@ -66,8 +66,14 @@ const Body = styled.div`
 const UserHeader = styled.div`
   display: flex;
   align-items: center;
+  position: sticky;
+  top: 0;
   height: 53px;
   padding: 0 16px;
+  border: 1px solid #5a5a78;
+  border-width: 0px 1px;
+  background: rgba(21, 32, 43, 0.75);
+  backdrop-filter: blur(12px);
 `;
 
 const HeaderInfo = styled.div``;
