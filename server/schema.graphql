@@ -10,6 +10,8 @@ type Query {
 
 type Mutation {
   createUser(name: String!): User!
+  updateUser(name: String): User!
+  upsertProfile(bio: String, location: String, url: String): Profile
   createTweet(content: String!): Tweet!
   createFollow(followingId: String!): Follow!
   deleteFollow(followingId: String!): Follow!

@@ -1,0 +1,5 @@
+mutation UpsertProfile($bio: String, $location: String, $url: String) {
+  upsertProfile(bio: $bio, location: $location, url: $url) {
+    id
+  }
+}

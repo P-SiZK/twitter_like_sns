@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   useGetUserQuery,
@@ -22,6 +23,9 @@ export const UserProfile: React.FC<Props> = ({ userId }) => {
     `${process.env.REACT_APP_AUTH0_MY_NAMESPACE as string}/userid`
   ] as string;
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [isFollow, setIsFollow] = useState(false);
   const [isHover, setIsHover] = useState(false);
 
@@ -36,6 +40,11 @@ export const UserProfile: React.FC<Props> = ({ userId }) => {
   const onUnFollowClick = async () => {
     await deleteFollowMutation({ followingId: userId });
     setIsFollow(false);
+  };
+  const onProfileEditClick = () => {
+    navigate("/settings/profile", {
+      state: { backgroundLocation: location },
+    });
   };
 
   const onMouseEnter = () => {
@@ -88,7 +97,7 @@ export const UserProfile: React.FC<Props> = ({ userId }) => {
           {(() => {
             if (authUserId === userId)
               return (
-                <ProfileEditButton type="button">
+                <ProfileEditButton type="button" onClick={onProfileEditClick}>
                   プロフィールを編集
                 </ProfileEditButton>
               );

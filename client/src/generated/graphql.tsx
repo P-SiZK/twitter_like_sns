@@ -41,6 +41,8 @@ export type Mutation = {
   createTweet: Tweet;
   createUser: User;
   deleteFollow: Follow;
+  updateUser: User;
+  upsertProfile?: Maybe<Profile>;
 };
 
 
@@ -61,6 +63,18 @@ export type MutationCreateUserArgs = {
 
 export type MutationDeleteFollowArgs = {
   followingId: Scalars['String'];
+};
+
+
+export type MutationUpdateUserArgs = {
+  name?: InputMaybe<Scalars['String']>;
+};
+
+
+export type MutationUpsertProfileArgs = {
+  bio?: InputMaybe<Scalars['String']>;
+  location?: InputMaybe<Scalars['String']>;
+  url?: InputMaybe<Scalars['String']>;
 };
 
 export type Profile = {
@@ -179,6 +193,22 @@ export type DeleteFollowMutationVariables = Exact<{
 
 export type DeleteFollowMutation = { deleteFollow: { id: number } };
 
+export type UpdateUserMutationVariables = Exact<{
+  name?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UpdateUserMutation = { updateUser: { id: string } };
+
+export type UpsertProfileMutationVariables = Exact<{
+  bio?: InputMaybe<Scalars['String']>;
+  location?: InputMaybe<Scalars['String']>;
+  url?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UpsertProfileMutation = { upsertProfile?: { id: number } | null };
+
 export type GetAllTweetsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -273,6 +303,28 @@ export const DeleteFollowDocument = gql`
 
 export function useDeleteFollowMutation() {
   return Urql.useMutation<DeleteFollowMutation, DeleteFollowMutationVariables>(DeleteFollowDocument);
+};
+export const UpdateUserDocument = gql`
+    mutation updateUser($name: String) {
+  updateUser(name: $name) {
+    id
+  }
+}
+    `;
+
+export function useUpdateUserMutation() {
+  return Urql.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument);
+};
+export const UpsertProfileDocument = gql`
+    mutation UpsertProfile($bio: String, $location: String, $url: String) {
+  upsertProfile(bio: $bio, location: $location, url: $url) {
+    id
+  }
+}
+    `;
+
+export function useUpsertProfileMutation() {
+  return Urql.useMutation<UpsertProfileMutation, UpsertProfileMutationVariables>(UpsertProfileDocument);
 };
 export const GetAllTweetsDocument = gql`
     query GetAllTweets {

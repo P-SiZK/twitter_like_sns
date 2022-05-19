@@ -43,6 +43,8 @@ export type Mutation = {
   createTweet: Tweet;
   createUser: User;
   deleteFollow: Follow;
+  updateUser: User;
+  upsertProfile?: Maybe<Profile>;
 };
 
 
@@ -63,6 +65,18 @@ export type MutationCreateUserArgs = {
 
 export type MutationDeleteFollowArgs = {
   followingId: Scalars['String'];
+};
+
+
+export type MutationUpdateUserArgs = {
+  name?: InputMaybe<Scalars['String']>;
+};
+
+
+export type MutationUpsertProfileArgs = {
+  bio?: InputMaybe<Scalars['String']>;
+  location?: InputMaybe<Scalars['String']>;
+  url?: InputMaybe<Scalars['String']>;
 };
 
 export type Profile = {
@@ -291,6 +305,8 @@ export type MutationResolvers<ContextType = Context, ParentType extends Resolver
   createTweet?: Resolver<ResolversTypes['Tweet'], ParentType, ContextType, RequireFields<MutationCreateTweetArgs, 'content'>>;
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'name'>>;
   deleteFollow?: Resolver<ResolversTypes['Follow'], ParentType, ContextType, RequireFields<MutationDeleteFollowArgs, 'followingId'>>;
+  updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, Partial<MutationUpdateUserArgs>>;
+  upsertProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, Partial<MutationUpsertProfileArgs>>;
 }>;
 
 export type ProfileResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Profile'] = ResolversParentTypes['Profile']> = ResolversObject<{

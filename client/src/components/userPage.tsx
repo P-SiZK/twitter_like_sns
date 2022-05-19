@@ -86,7 +86,7 @@ const PageBack = styled.div`
   align-items: center;
   width: 20px;
   padding: 0;
-  fill: rgb(239, 243, 244); ;
+  fill: rgb(239, 243, 244);
 `;
 
 const HeaderName = styled.div`
