@@ -25,11 +25,17 @@ export const createTweet: MutationResolvers["createTweet"] = async (
     },
   });
 
+  const data = followers.map((follower) => ({
+    userId: follower.followerId,
+    tweetId: tweet.id,
+  }));
+  data.push({
+    userId: account.id,
+    tweetId: tweet.id,
+  });
+
   await prisma.timeline.createMany({
-    data: followers.map((follower) => ({
-      userId: follower.followerId,
-      tweetId: tweet.id,
-    })),
+    data
   });
 
   return tweet;

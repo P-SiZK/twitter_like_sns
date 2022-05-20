@@ -82,7 +82,7 @@ model Timeline {
   user      User     @relation(fields: [userId], references: [id])
   userId    String
   tweet     Tweet    @relation(fields: [tweetId], references: [id])
-  tweetId   String   @id
+  tweetId   String
 
   @@unique([userId, tweetId])
 }
