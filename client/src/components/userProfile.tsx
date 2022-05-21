@@ -239,6 +239,9 @@ const UserID = styled.div`
 const Bio = styled.div`
   color: #fefffe;
   margin-bottom: 12px;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 `;
 
 const FollowInfo = styled.div`
