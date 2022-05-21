@@ -57,6 +57,7 @@ export type MutationCreateTweetArgs = {
 
 
 export type MutationCreateUserArgs = {
+  id: Scalars['String'];
   name: Scalars['String'];
 };
 
@@ -180,6 +181,7 @@ export type CreateTweetMutationVariables = Exact<{
 export type CreateTweetMutation = { createTweet: { id: string, createdAt: any, authorId: string, author: { name: string } } };
 
 export type CreateUserMutationVariables = Exact<{
+  id: Scalars['String'];
   name: Scalars['String'];
 }>;
 
@@ -283,8 +285,8 @@ export function useCreateTweetMutation() {
   return Urql.useMutation<CreateTweetMutation, CreateTweetMutationVariables>(CreateTweetDocument);
 };
 export const CreateUserDocument = gql`
-    mutation CreateUser($name: String!) {
-  createUser(name: $name) {
+    mutation CreateUser($id: String!, $name: String!) {
+  createUser(id: $id, name: $name) {
     id
   }
 }

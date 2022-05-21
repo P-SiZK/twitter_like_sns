@@ -9,6 +9,7 @@ generator client {
 
 model User {
   id        String     @id @unique
+  auth0Id   String     @unique
   createdAt DateTime   @default(now())
   name      String
   profile   Profile?

@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -10,19 +9,12 @@ import {
   useGetFollowingsQuery,
   useGetFollowersQuery,
 } from "../generated/graphql";
-import { Loading } from "./loading";
 
 type Props = {
   userId: string;
 };
 
 export const UserProfile: React.FC<Props> = ({ userId }) => {
-  const { isLoading, user: authUser } = useAuth0();
-  if (!authUser) throw Error("Authentication error");
-  const authUserId = authUser[
-    `${process.env.REACT_APP_AUTH0_MY_NAMESPACE as string}/userid`
-  ] as string;
-
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -54,6 +46,10 @@ export const UserProfile: React.FC<Props> = ({ userId }) => {
     setIsHover(false);
   };
 
+  const [{ data: loginUserData, error: loginUserError }] = useGetUserQuery();
+  if (loginUserError) throw new Error(loginUserError.message);
+  const loginUserId = loginUserData?.getUser?.id;
+
   const [{ data: userData, error: userError }] = useGetUserQuery({
     variables: { id: userId },
   });
@@ -78,10 +74,9 @@ export const UserProfile: React.FC<Props> = ({ userId }) => {
   const followers = followersData?.getFollowers;
 
   useEffect(() => {
-    if (followers?.find((v) => v.followerId === authUserId)) setIsFollow(true);
-  }, [authUserId, followers]);
+    if (followers?.find((v) => v.followerId === loginUserId)) setIsFollow(true);
+  }, [loginUserId, followers]);
 
-  if (isLoading) return <Loading />;
   if (!user) throw new Error(`${userId} is not found`);
 
   return (
@@ -95,7 +90,7 @@ export const UserProfile: React.FC<Props> = ({ userId }) => {
             <img src="/twitter_icon.png" alt={userId} />
           </UserIcon>
           {(() => {
-            if (authUserId === userId)
+            if (loginUserId === userId)
               return (
                 <ProfileEditButton type="button" onClick={onProfileEditClick}>
                   プロフィールを編集

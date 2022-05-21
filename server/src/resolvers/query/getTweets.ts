@@ -1,3 +1,4 @@
+import { getUserId } from "../../lib/getUserId";
 import { prisma } from "../../lib/prisma";
 import { QueryResolvers } from "../../types/generated/graphql";
 
@@ -11,7 +12,7 @@ export const getTweets: QueryResolvers["getTweets"] = async (
   if (!authorId) {
     const { account } = context;
     if (account === undefined) throw new Error("Authentication Error");
-    authorId = account.id;
+    authorId = await getUserId(account.auth0Id);
   }
 
   const tweets = await prisma.tweet.findMany({

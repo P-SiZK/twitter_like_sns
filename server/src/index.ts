@@ -6,10 +6,8 @@ import { ApolloServer } from "apollo-server";
 import { Context } from "apollo-server-core";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import jwksClient from "jwks-rsa";
-import fetch from "node-fetch";
 import { join } from "path";
 import { resolvers } from "./resolvers";
-import { UserInfo } from "./types/auth0UserInfo";
 
 const client = jwksClient({
   jwksUri: `https://${
@@ -55,23 +53,10 @@ const server = new ApolloServer({
           resolve(decoded as jwt.JwtPayload);
         });
       });
-      const accountInfo = (await fetch(
-        `https://${process.env.AUTH0_DOMAIN as string}/userinfo`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      ).then((res) => res.json())) as UserInfo;
 
       return {
         account: {
           auth0Id: account.sub,
-          id: accountInfo[
-            `${process.env.AUTH0_MY_NAMESPACE as string}/userid`
-          ] as string,
-          email: accountInfo.email,
         },
       } as Context;
     } catch (_error) {
