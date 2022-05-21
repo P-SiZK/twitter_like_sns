@@ -234,7 +234,7 @@ const FormDescription = styled.div`
 `;
 
 const InputForm = styled.input`
-  padding: 12px 8px 8px 8px;
+  padding: 0 8px 8px 8px;
   border: none;
   box-sizing: border-box;
   width: 100%;
@@ -247,11 +247,11 @@ const InputForm = styled.input`
 `;
 
 const TextareaForm = styled.textarea`
-  height: 100%;
-  padding: 12px 8px 8px 8px;
+  padding: 0 8px 8px 8px;
   border: none;
   box-sizing: border-box;
   width: 100%;
+  height: 66px;
   font-size: 17px;
   color: #fefffe;
   background-color: transparent;

@@ -21,6 +21,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
+  button, input, select, textarea {
+    font-family: inherit;
+    font-size: 100%;
+  }
 `;
 
 const root = ReactDOM.createRoot(
