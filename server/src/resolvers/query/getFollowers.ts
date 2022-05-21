@@ -1,3 +1,4 @@
+import { getUserId } from "../../lib/getUserId";
 import { prisma } from "../../lib/prisma";
 import { QueryResolvers } from "../../types/generated/graphql";
 
@@ -11,7 +12,7 @@ export const getFollowers: QueryResolvers["getFollowers"] = async (
   if (!followingId) {
     const { account } = context;
     if (account === undefined) throw new Error("Authentication Error");
-    followingId = account.id;
+    followingId = await getUserId(account.auth0Id);
   }
 
   const tweets = await prisma.follow.findMany({

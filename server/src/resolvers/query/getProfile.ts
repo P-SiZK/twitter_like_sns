@@ -1,3 +1,4 @@
+import { getUserId } from "../../lib/getUserId";
 import { prisma } from "../../lib/prisma";
 import { QueryResolvers } from "../../types/generated/graphql";
 
@@ -11,7 +12,7 @@ export const getProfile: QueryResolvers["getProfile"] = async (
   if (!userId) {
     const { account } = context;
     if (account === undefined) throw new Error("Authentication Error");
-    userId = account.id;
+    userId = await getUserId(account.auth0Id);
   }
 
   const profile = await prisma.profile.findUnique({

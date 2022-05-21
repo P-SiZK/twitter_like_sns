@@ -13,7 +13,7 @@ export const updateUser: MutationResolvers["updateUser"] = async (
 
   const user = await prisma.user.update({
     where: {
-      id: account.id,
+      auth0Id: account.auth0Id,
     },
     data: {
       name,

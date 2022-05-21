@@ -9,7 +9,7 @@ type Query {
 }
 
 type Mutation {
-  createUser(name: String!): User!
+  createUser(id: String!, name: String!): User!
   updateUser(name: String): User!
   upsertProfile(bio: String, location: String, url: String): Profile
   createTweet(content: String!): Tweet!

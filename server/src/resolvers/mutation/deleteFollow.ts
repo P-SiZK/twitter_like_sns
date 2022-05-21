@@ -1,3 +1,4 @@
+import { getUserId } from "../../lib/getUserId";
 import { prisma } from "../../lib/prisma";
 import { MutationResolvers } from "../../types/generated/graphql";
 
@@ -9,11 +10,13 @@ export const deleteFollow: MutationResolvers["deleteFollow"] = async (
   const { account } = context;
   if (account === undefined) throw new Error("Authentication Error");
 
+  const userId = await getUserId(account.auth0Id);
+
   const existFollow = await prisma.follow.findUnique({
     where: {
       followingId_followerId: {
         followingId: args.followingId,
-        followerId: account.id,
+        followerId: userId,
       },
     },
   });
@@ -23,7 +26,7 @@ export const deleteFollow: MutationResolvers["deleteFollow"] = async (
     where: {
       followingId_followerId: {
         followingId: args.followingId,
-        followerId: account.id,
+        followerId: userId,
       },
     },
     include: {
