@@ -52,8 +52,12 @@ export const TweetItem: React.FC<TweetProps> = ({ tweet }) => {
     <Wrapper>
       <TweetLabel />
       <TweetBox>
-        <UserIcon onClick={redirectUserProfile}>
-          <img src="/twitter_icon.png" alt={tweet.authorId} />
+        <UserIcon>
+          <IconImg
+            src="/twitter_icon.png"
+            alt={tweet.authorId}
+            onClick={redirectUserProfile}
+          />
         </UserIcon>
         <Content>
           <UserInfo>
@@ -125,11 +129,13 @@ const TweetBox = styled.div`
 
 const UserIcon = styled.div`
   margin-right: 12px;
-  img {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-  }
+`;
+
+const IconImg = styled.img`
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
 `;
 
 const Content = styled.div`

@@ -1,10 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useCreateTweetMutation } from "../generated/graphql";
+import { useCreateTweetMutation, useGetUserQuery } from "../generated/graphql";
 import { ReactComponent as MediaIcon } from "../images/media.svg";
 
 export const TweetComposeBox: React.FC = () => {
+  const navigate = useNavigate();
+
   const [, createTweetMutation] = useCreateTweetMutation();
+
+  const [{ data, error }] = useGetUserQuery();
+  if (error) throw new Error(error.message);
+  const userId = data?.getUser?.id;
 
   const [tweetText, setTweetText] = useState("");
 
@@ -21,7 +28,11 @@ export const TweetComposeBox: React.FC = () => {
   return (
     <TweetBox>
       <UserIcon>
-        <img src="/twitter_icon.png" alt="Twitter" />
+        <IconImg
+          src="/twitter_icon.png"
+          alt="Twitter"
+          onClick={() => navigate(`/${userId as string}`)}
+        />
       </UserIcon>
       <TweetForm>
         <TweetTextWrapper>
@@ -52,11 +63,13 @@ const TweetBox = styled.div`
 
 const UserIcon = styled.div`
   margin-right: 12px;
-  img {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-  }
+`;
+
+const IconImg = styled.img`
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
 `;
 
 const TweetForm = styled.form`
