@@ -60,7 +60,6 @@ export const UserPage: React.FC = () => {
 const Body = styled.div`
   width: calc(100% - 20px);
   max-width: 600px;
-  margin: 0 auto;
 `;
 
 const UserHeader = styled.div`

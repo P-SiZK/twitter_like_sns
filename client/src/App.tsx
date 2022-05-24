@@ -1,14 +1,15 @@
 import React from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { RequireAuth } from "./components/requireAuth";
 import { RequireUnAuth } from "./components/requireUnAuth";
 import { Signup } from "./components/signup";
 import { Login } from "./components/login";
-import { Home } from "./components/home";
-import { Timeline } from "./components/timeline";
+import { GlobalTL } from "./components/globalTimeline";
+import { HomeTL } from "./components/homeTimeline";
 import { UserPage } from "./components/userPage";
 import { NotFound } from "./components/notFound";
 import { ProfileEdit } from "./components/profileEdit";
+import { WithNavigation } from "./components/withNavigation";
 
 export const App: React.FC = () => {
   const location = useLocation();
@@ -21,9 +22,19 @@ export const App: React.FC = () => {
           <Route path="/login" element={<Login />} />
         </Route>
         <Route element={<RequireAuth />}>
-          <Route index element={<Home />} />
-          <Route path="/timeline" element={<Timeline />} />
-          <Route path="/:userId" element={<UserPage />} />
+          <Route index element={<Navigate to="/home" replace />} />
+          <Route
+            path="/home"
+            element={<WithNavigation element={<HomeTL />} />}
+          />
+          <Route
+            path="/global"
+            element={<WithNavigation element={<GlobalTL />} />}
+          />
+          <Route
+            path="/:userId"
+            element={<WithNavigation element={<UserPage />} />}
+          />
           <Route path="/signup" element={<Signup />} />
         </Route>
         <Route path="*" element={<NotFound />} />

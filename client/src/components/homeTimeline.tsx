@@ -3,22 +3,24 @@ import { Helmet } from "react-helmet-async";
 import styled from "styled-components";
 import { TweetComposeBox } from "./tweetComposeBox";
 import { TweetItems } from "./tweetItems";
-import { useGetAllTweetsQuery } from "../generated/graphql";
+import { useGetTimelinesQuery } from "../generated/graphql";
 
-export const Home: React.FC = () => {
-  const [{ data, error }] = useGetAllTweetsQuery();
+export const HomeTL: React.FC = () => {
+  const [{ data, error }] = useGetTimelinesQuery();
   if (error) throw new Error(error.message);
-  const tweets = data?.getAllTweets;
+  const timelines = data?.getTimelines;
 
   return (
     <>
       <Helmet>
-        <title>ホーム / 7witter</title>
+        <title>タイムライン / 7witter</title>
       </Helmet>
       <Body>
-        <HomeHeader>最新ツイート</HomeHeader>
+        <TimelineHeader>最新ツイート</TimelineHeader>
         <TweetComposeBox />
-        {tweets && <TweetItems tweets={tweets} />}
+        {timelines && (
+          <TweetItems tweets={timelines.map((timeline) => timeline.tweet)} />
+        )}
       </Body>
     </>
   );
@@ -27,10 +29,9 @@ export const Home: React.FC = () => {
 const Body = styled.div`
   width: calc(100% - 20px);
   max-width: 600px;
-  margin: 0 auto;
 `;
 
-const HomeHeader = styled.div`
+const TimelineHeader = styled.div`
   display: flex;
   align-items: center;
   position: sticky;
