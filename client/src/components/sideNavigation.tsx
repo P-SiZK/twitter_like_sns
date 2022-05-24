@@ -1,15 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useGetUserQuery } from "../generated/graphql";
 import { ReactComponent as GlobalIcon } from "../images/global.svg";
 import { ReactComponent as HomeIcon } from "../images/home.svg";
 import { ReactComponent as ProfileIcon } from "../images/profile.svg";
 
 export const SideNavigation: React.FC = () => {
-  const { logout } = useAuth0();
-
   const [{ data, error }] = useGetUserQuery();
   if (error) throw new Error(error.message);
   const user = data?.getUser;
@@ -36,12 +33,9 @@ export const SideNavigation: React.FC = () => {
           <NavigationText>プロフィール</NavigationText>
         </NavigationLink>
       </NavigationLinks>
-      <LogoutButton
-        type="button"
-        onClick={() => logout({ returnTo: `${window.location.origin}/login` })}
-      >
-        ログアウト
-      </LogoutButton>
+      <ButtonLink to="/logout">
+        <LogoutButton type="button">ログアウト</LogoutButton>
+      </ButtonLink>
     </Wrapper>
   );
 };
@@ -63,7 +57,6 @@ const NavigationLinks = styled.div`
 `;
 
 const NavigationLink = styled(Link)`
-  cursor: pointer;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -102,9 +95,19 @@ const TweetButton = styled.button`
 `;
 */
 
+const ButtonLink = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 12px auto;
+  border-radius: 9999px;
+  width: 100%;
+`;
+
 const LogoutButton = styled.button`
   cursor: pointer;
-  height: 32px;
+  height: 40px;
   width: 80%;
   padding: 0 16px;
   border-radius: 9999px;
@@ -113,7 +116,6 @@ const LogoutButton = styled.button`
   font-weight: bold;
   color: rgb(15, 20, 25);
   background-color: rgb(239, 243, 244);
-  margin: 12px auto;
   &:hover {
     opacity: 90%;
   }

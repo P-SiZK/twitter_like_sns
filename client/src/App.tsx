@@ -10,6 +10,7 @@ import { UserPage } from "./components/userPage";
 import { NotFound } from "./components/notFound";
 import { ProfileEdit } from "./components/profileEdit";
 import { WithNavigation } from "./components/withNavigation";
+import { Logout } from "./components/logout";
 
 export const App: React.FC = () => {
   const location = useLocation();
@@ -35,6 +36,7 @@ export const App: React.FC = () => {
             path="/:userId"
             element={<WithNavigation element={<UserPage />} />}
           />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/signup" element={<Signup />} />
         </Route>
         <Route path="*" element={<NotFound />} />
