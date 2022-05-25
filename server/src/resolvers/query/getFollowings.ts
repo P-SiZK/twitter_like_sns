@@ -15,7 +15,7 @@ export const getFollowings: QueryResolvers["getFollowings"] = async (
     followerId = await getUserId(account.auth0Id);
   }
 
-  const tweets = await prisma.follow.findMany({
+  const followings = await prisma.follow.findMany({
     orderBy: {
       createdAt: "desc",
     },
@@ -27,5 +27,5 @@ export const getFollowings: QueryResolvers["getFollowings"] = async (
       follower: true,
     },
   });
-  return tweets;
+  return followings;
 };
