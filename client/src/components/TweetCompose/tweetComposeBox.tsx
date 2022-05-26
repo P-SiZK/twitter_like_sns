@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useCreateTweetMutation, useGetUserQuery } from "../generated/graphql";
-import { ReactComponent as MediaIcon } from "../images/media.svg";
+import {
+  useCreateTweetMutation,
+  useGetTweetComposeQuery,
+} from "../../generated/graphql";
+import { ReactComponent as MediaIcon } from "../../images/media.svg";
 
 export const TweetComposeBox: React.FC = () => {
   const navigate = useNavigate();
 
   const [, createTweetMutation] = useCreateTweetMutation();
 
-  const [{ data, error }] = useGetUserQuery();
+  const [{ data, error }] = useGetTweetComposeQuery();
   if (error) throw new Error(error.message);
   const userId = data?.getUser?.id;
 

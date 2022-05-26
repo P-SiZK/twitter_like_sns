@@ -2,13 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
-  useGetUserQuery,
-  useGetProfileQuery,
   useCreateFollowMutation,
   useDeleteFollowMutation,
-  useGetFollowingsQuery,
-  useGetFollowersQuery,
-} from "../generated/graphql";
+  useGetUserProfileQuery,
+} from "../../generated/graphql";
 
 type Props = {
   userId: string;
@@ -25,12 +22,13 @@ export const UserProfile: React.FC<Props> = ({ userId }) => {
   const [, deleteFollowMutation] = useDeleteFollowMutation();
 
   const onFollowClick = async () => {
-    const a = await createFollowMutation({ followingId: userId });
-    if (a.error) throw new Error(a.error.message);
+    const { error } = await createFollowMutation({ followingId: userId });
+    if (error) throw new Error(error.message);
     setIsFollow(true);
   };
   const onUnFollowClick = async () => {
-    await deleteFollowMutation({ followingId: userId });
+    const { error } = await deleteFollowMutation({ followingId: userId });
+    if (error) throw new Error(error.message);
     setIsFollow(false);
   };
   const onProfileEditClick = () => {
@@ -46,38 +44,19 @@ export const UserProfile: React.FC<Props> = ({ userId }) => {
     setIsHover(false);
   };
 
-  const [{ data: loginUserData, error: loginUserError }] = useGetUserQuery();
-  if (loginUserError) throw new Error(loginUserError.message);
-  const loginUserId = loginUserData?.getUser?.id;
-
-  const [{ data: userData, error: userError }] = useGetUserQuery({
+  const [{ data, error }] = useGetUserProfileQuery({
     variables: { id: userId },
   });
-  if (userError) throw new Error(userError.message);
-  const user = userData?.getUser;
-
-  const [{ data: profileData, error: profileError }] = useGetProfileQuery({
-    variables: { userId },
-  });
-  if (profileError) throw new Error(profileError.message);
-  const profile = profileData?.getProfile;
-
-  const [{ data: followingsData, error: followingsError }] =
-    useGetFollowingsQuery({ variables: { followerId: userId } });
-  if (followingsError) throw new Error(followingsError.message);
-  const followings = followingsData?.getFollowings;
-
-  const [{ data: followersData, error: followersError }] = useGetFollowersQuery(
-    { variables: { followingId: userId } }
-  );
-  if (followersError) throw new Error(followersError.message);
-  const followers = followersData?.getFollowers;
+  if (error) throw new Error(error.message);
+  const loginUserId = data?.getLoginUser?.id;
+  const user = data?.getUser;
+  const profile = data?.getProfile;
+  const followings = data?.getFollowings;
+  const followers = data?.getFollowers;
 
   useEffect(() => {
     if (followers?.find((v) => v.followerId === loginUserId)) setIsFollow(true);
   }, [loginUserId, followers]);
-
-  if (!user) throw new Error(`${userId} is not found`);
 
   return (
     <Wrapper>
@@ -115,7 +94,7 @@ export const UserProfile: React.FC<Props> = ({ userId }) => {
           })()}
         </ProfileHeader>
         <UserInfo>
-          <UserName>{user.name}</UserName>
+          <UserName>{user?.name}</UserName>
           <UserID>@{userId}</UserID>
         </UserInfo>
         {profile?.bio && <Bio>{profile?.bio}</Bio>}

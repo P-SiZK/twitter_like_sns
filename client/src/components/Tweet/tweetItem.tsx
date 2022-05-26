@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { GetTweetsQuery } from "../generated/graphql";
-import { ReactComponent as ReplyIcon } from "../images/reply.svg";
-import { ReactComponent as RetweetIcon } from "../images/retweet_before.svg";
-import { ReactComponent as AfterRetweetIcon } from "../images/retweet_after.svg";
-import { ReactComponent as FavoriteIcon } from "../images/favorite_before.svg";
-import { ReactComponent as AfterFavoriteIcon } from "../images/favorite_after.svg";
-import { ReactComponent as ShareIcon } from "../images/share.svg";
+import { Tweet } from "./tweet";
+import { ReactComponent as ReplyIcon } from "../../images/reply.svg";
+import { ReactComponent as RetweetIcon } from "../../images/retweet_before.svg";
+import { ReactComponent as AfterRetweetIcon } from "../../images/retweet_after.svg";
+import { ReactComponent as FavoriteIcon } from "../../images/favorite_before.svg";
+import { ReactComponent as AfterFavoriteIcon } from "../../images/favorite_after.svg";
+import { ReactComponent as ShareIcon } from "../../images/share.svg";
 
 type TweetProps = {
-  tweet: GetTweetsQuery["getTweets"][number];
+  tweet: Tweet;
 };
 
 export const TweetItem: React.FC<TweetProps> = ({ tweet }) => {

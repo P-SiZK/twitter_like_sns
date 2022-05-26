@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { Tweet } from "./tweet";
 import { TweetItem } from "./tweetItem";
-import { GetTweetsQuery } from "../generated/graphql";
 
 type Props = {
-  tweets: GetTweetsQuery["getTweets"];
+  tweets: Tweet[];
 };
 
 export const TweetItems: React.FC<Props> = ({ tweets }) => (

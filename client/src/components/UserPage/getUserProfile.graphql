@@ -1,0 +1,19 @@
+query GetUserProfile($id: String) {
+  getLoginUser: getUser {
+    id
+  }
+  getUser(id: $id) {
+    name
+  }
+  getProfile(userId: $id) {
+    bio
+    location
+    url
+  }
+  getFollowings(followerId: $id) {
+    followingId
+  }
+  getFollowers(followingId: $id) {
+    followerId
+  }
+}

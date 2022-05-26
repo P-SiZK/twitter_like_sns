@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useGetUserQuery, useCreateUserMutation } from "../generated/graphql";
+import {
+  useGetSignupQuery,
+  useCreateUserMutation,
+} from "../../generated/graphql";
 
 export const Signup: React.FC = () => {
   const navigate = useNavigate();
 
-  const [{ data }] = useGetUserQuery();
-
+  const [{ data, error }] = useGetSignupQuery();
+  if (error) throw new Error(error.message);
   if (data?.getUser) navigate("/", { replace: true });
 
   const [, createUserMutation] = useCreateUserMutation();

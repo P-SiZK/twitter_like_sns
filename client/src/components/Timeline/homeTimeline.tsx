@@ -1,12 +1,12 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import styled from "styled-components";
-import { TweetComposeBox } from "./tweetComposeBox";
-import { TweetItems } from "./tweetItems";
-import { useGetTimelinesQuery } from "../generated/graphql";
+import { TweetComposeBox } from "../TweetCompose/tweetComposeBox";
+import { TweetItems } from "../Tweet/tweetItems";
+import { useGetHomeTimelineQuery } from "../../generated/graphql";
 
 export const HomeTL: React.FC = () => {
-  const [{ data, error }] = useGetTimelinesQuery();
+  const [{ data, error }] = useGetHomeTimelineQuery();
   if (error) throw new Error(error.message);
   const timelines = data?.getTimelines;
 

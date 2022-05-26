@@ -5,7 +5,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import { HelmetProvider } from "react-helmet-async";
 import { createGlobalStyle } from "styled-components";
 import { App } from "./App";
-import { AuthorizedUrqlProvider } from "./components/authorizedUrqlProvider";
+import { AuthorizedUrqlProvider } from "./components/Provider/authorizedUrqlProvider";
 
 const GlobalStyle = createGlobalStyle`
   body {

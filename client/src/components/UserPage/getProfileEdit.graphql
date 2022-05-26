@@ -1,0 +1,11 @@
+query GetProfileEdit {
+  getUser {
+    id
+    name
+  }
+  getProfile {
+    bio
+    location
+    url
+  }
+}

@@ -1,0 +1,5 @@
+query getSignup {
+  getUser {
+    id
+  }
+}

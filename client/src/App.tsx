@@ -1,16 +1,16 @@
 import React from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-import { RequireAuth } from "./components/requireAuth";
-import { RequireUnAuth } from "./components/requireUnAuth";
-import { Signup } from "./components/signup";
-import { Login } from "./components/login";
-import { GlobalTL } from "./components/globalTimeline";
-import { HomeTL } from "./components/homeTimeline";
-import { UserPage } from "./components/userPage";
+import { RequireAuth } from "./components/Route/requireAuth";
+import { RequireUnAuth } from "./components/Route/requireUnAuth";
+import { Signup } from "./components/UserAuthentication/signup";
+import { Login } from "./components/UserAuthentication/login";
+import { Logout } from "./components/UserAuthentication/logout";
+import { WithNavigation } from "./components/SideNavigation/withNavigation";
+import { GlobalTL } from "./components/Timeline/globalTimeline";
+import { HomeTL } from "./components/Timeline/homeTimeline";
+import { UserPage } from "./components/UserPage/userPage";
+import { ProfileEdit } from "./components/UserPage/profileEdit";
 import { NotFound } from "./components/notFound";
-import { ProfileEdit } from "./components/profileEdit";
-import { WithNavigation } from "./components/withNavigation";
-import { Logout } from "./components/logout";
 
 export const App: React.FC = () => {
   const location = useLocation();

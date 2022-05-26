@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useGetUserQuery } from "../generated/graphql";
-import { ReactComponent as GlobalIcon } from "../images/global.svg";
-import { ReactComponent as HomeIcon } from "../images/home.svg";
-import { ReactComponent as ProfileIcon } from "../images/profile.svg";
+import { useGetSideNavigationQuery } from "../../generated/graphql";
+import { ReactComponent as GlobalIcon } from "../../images/global.svg";
+import { ReactComponent as HomeIcon } from "../../images/home.svg";
+import { ReactComponent as ProfileIcon } from "../../images/profile.svg";
 
 export const SideNavigation: React.FC = () => {
-  const [{ data, error }] = useGetUserQuery();
+  const [{ data, error }] = useGetSideNavigationQuery();
   if (error) throw new Error(error.message);
-  const user = data?.getUser;
+  const userId = data?.getUser?.id;
 
   return (
     <Wrapper>
@@ -26,7 +26,7 @@ export const SideNavigation: React.FC = () => {
           </SVG>
           <NavigationText>グローバル</NavigationText>
         </NavigationLink>
-        <NavigationLink to={`/${user?.id as string}`}>
+        <NavigationLink to={`/${userId as string}`}>
           <SVG>
             <ProfileIcon />
           </SVG>

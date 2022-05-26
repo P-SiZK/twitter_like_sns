@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
-  useGetUserQuery,
-  useGetProfileQuery,
+  useGetProfileEditQuery,
   useUpdateUserMutation,
   useUpsertProfileMutation,
-} from "../generated/graphql";
-import { ReactComponent as CloseIcon } from "../images/close_button.svg";
+} from "../../generated/graphql";
+import { ReactComponent as CloseIcon } from "../../images/close_button.svg";
 
 export const ProfileEdit: React.FC = () => {
   const navigate = useNavigate();
@@ -15,13 +14,10 @@ export const ProfileEdit: React.FC = () => {
   const [, updateUserMutation] = useUpdateUserMutation();
   const [, upsertProfileMutation] = useUpsertProfileMutation();
 
-  const [{ data: userData, error: userError }] = useGetUserQuery();
-  if (userError) throw new Error(userError.message);
-  const user = userData?.getUser;
-
-  const [{ data: profileData, error: profileError }] = useGetProfileQuery();
-  if (profileError) throw new Error(profileError.message);
-  const profile = profileData?.getProfile;
+  const [{ data, error }] = useGetProfileEditQuery();
+  if (error) throw new Error(error.message);
+  const user = data?.getUser;
+  const profile = data?.getProfile;
 
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");

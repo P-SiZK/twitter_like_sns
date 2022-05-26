@@ -1,0 +1,27 @@
+query GetUserPage($id: String) {
+  getUser(id: $id) {
+    id
+    name
+  }
+  getTweets(authorId: $id) {
+    id
+    createdAt
+    content
+    author {
+      name
+    }
+    authorId
+    retweet {
+      retweetUser {
+        id
+        name
+      }
+    }
+    favorite {
+      favoriteUser {
+        id
+        name
+      }
+    }
+  }
+}

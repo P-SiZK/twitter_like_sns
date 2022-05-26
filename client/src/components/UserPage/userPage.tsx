@@ -3,11 +3,11 @@ import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { UserProfile } from "./userProfile";
-import { TweetItems } from "./tweetItems";
-import { useGetUserQuery, useGetTweetsQuery } from "../generated/graphql";
-import { NotFound } from "./notFound";
-import { ReactComponent as PageBackIcon } from "../images/page_back.svg";
-import { Loading } from "./loading";
+import { TweetItems } from "../Tweet/tweetItems";
+import { Loading } from "../loading";
+import { NotFound } from "../notFound";
+import { ReactComponent as PageBackIcon } from "../../images/page_back.svg";
+import { useGetUserPageQuery } from "../../generated/graphql";
 
 type Params = {
   userId: string;
@@ -18,17 +18,14 @@ export const UserPage: React.FC = () => {
 
   const { userId } = useParams<Params>() as Params;
 
-  const [{ data: userData, fetching: userFeching, error: userError }] =
-    useGetUserQuery({ variables: { id: userId } });
-  if (userError) throw new Error(userError.message);
-  const user = userData?.getUser;
+  const [{ data, fetching, error }] = useGetUserPageQuery({
+    variables: { id: userId },
+  });
+  if (error) throw new Error(error.message);
+  const user = data?.getUser;
+  const tweets = data?.getTweets;
 
-  const [{ data: tweetsData, fetching: tweetsFetching, error: tweetsError }] =
-    useGetTweetsQuery({ variables: { authorId: userId } });
-  if (tweetsError) throw new Error(tweetsError.message);
-  const tweets = tweetsData?.getTweets;
-
-  if (userFeching || tweetsFetching) return <Loading />;
+  if (fetching) return <Loading />;
   if (!user) return <NotFound />;
 
   return (

@@ -166,6 +166,50 @@ export type User = {
   tweets?: Maybe<Array<Maybe<Tweet>>>;
 };
 
+export type GetSideNavigationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSideNavigationQuery = { getUser?: { id: string } | null };
+
+export type GetGlobalTimelineQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetGlobalTimelineQuery = { getAllTweets: Array<{ id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet?: Array<{ retweetUser: { id: string, name: string } } | null> | null, favorite?: Array<{ favoriteUser: { id: string, name: string } } | null> | null }> };
+
+export type GetHomeTimelineQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetHomeTimelineQuery = { getTimelines: Array<{ tweet: { id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet?: Array<{ retweetUser: { id: string, name: string } } | null> | null, favorite?: Array<{ favoriteUser: { id: string, name: string } } | null> | null } }> };
+
+export type GetTweetComposeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTweetComposeQuery = { getUser?: { id: string } | null };
+
+export type GetSignupQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSignupQuery = { getUser?: { id: string } | null };
+
+export type GetProfileEditQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetProfileEditQuery = { getUser?: { id: string, name: string } | null, getProfile?: { bio?: string | null, location?: string | null, url?: string | null } | null };
+
+export type GetUserPageQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetUserPageQuery = { getUser?: { id: string, name: string } | null, getTweets: Array<{ id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet?: Array<{ retweetUser: { id: string, name: string } } | null> | null, favorite?: Array<{ favoriteUser: { id: string, name: string } } | null> | null }> };
+
+export type GetUserProfileQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetUserProfileQuery = { getLoginUser?: { id: string } | null, getUser?: { name: string } | null, getProfile?: { bio?: string | null, location?: string | null, url?: string | null } | null, getFollowings: Array<{ followingId: string }>, getFollowers: Array<{ followerId: string }> };
+
 export type CreateFollowMutationVariables = Exact<{
   followingId: Scalars['String'];
 }>;
@@ -257,6 +301,174 @@ export type GetUserQueryVariables = Exact<{
 export type GetUserQuery = { getUser?: { id: string, name: string } | null };
 
 
+export const GetSideNavigationDocument = gql`
+    query GetSideNavigation {
+  getUser {
+    id
+  }
+}
+    `;
+
+export function useGetSideNavigationQuery(options?: Omit<Urql.UseQueryArgs<GetSideNavigationQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetSideNavigationQuery>({ query: GetSideNavigationDocument, ...options });
+};
+export const GetGlobalTimelineDocument = gql`
+    query GetGlobalTimeline {
+  getAllTweets {
+    id
+    createdAt
+    content
+    author {
+      name
+    }
+    authorId
+    retweet {
+      retweetUser {
+        id
+        name
+      }
+    }
+    favorite {
+      favoriteUser {
+        id
+        name
+      }
+    }
+  }
+}
+    `;
+
+export function useGetGlobalTimelineQuery(options?: Omit<Urql.UseQueryArgs<GetGlobalTimelineQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetGlobalTimelineQuery>({ query: GetGlobalTimelineDocument, ...options });
+};
+export const GetHomeTimelineDocument = gql`
+    query GetHomeTimeline {
+  getTimelines {
+    tweet {
+      id
+      createdAt
+      content
+      author {
+        name
+      }
+      authorId
+      retweet {
+        retweetUser {
+          id
+          name
+        }
+      }
+      favorite {
+        favoriteUser {
+          id
+          name
+        }
+      }
+    }
+  }
+}
+    `;
+
+export function useGetHomeTimelineQuery(options?: Omit<Urql.UseQueryArgs<GetHomeTimelineQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetHomeTimelineQuery>({ query: GetHomeTimelineDocument, ...options });
+};
+export const GetTweetComposeDocument = gql`
+    query GetTweetCompose {
+  getUser {
+    id
+  }
+}
+    `;
+
+export function useGetTweetComposeQuery(options?: Omit<Urql.UseQueryArgs<GetTweetComposeQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetTweetComposeQuery>({ query: GetTweetComposeDocument, ...options });
+};
+export const GetSignupDocument = gql`
+    query getSignup {
+  getUser {
+    id
+  }
+}
+    `;
+
+export function useGetSignupQuery(options?: Omit<Urql.UseQueryArgs<GetSignupQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetSignupQuery>({ query: GetSignupDocument, ...options });
+};
+export const GetProfileEditDocument = gql`
+    query GetProfileEdit {
+  getUser {
+    id
+    name
+  }
+  getProfile {
+    bio
+    location
+    url
+  }
+}
+    `;
+
+export function useGetProfileEditQuery(options?: Omit<Urql.UseQueryArgs<GetProfileEditQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetProfileEditQuery>({ query: GetProfileEditDocument, ...options });
+};
+export const GetUserPageDocument = gql`
+    query GetUserPage($id: String) {
+  getUser(id: $id) {
+    id
+    name
+  }
+  getTweets(authorId: $id) {
+    id
+    createdAt
+    content
+    author {
+      name
+    }
+    authorId
+    retweet {
+      retweetUser {
+        id
+        name
+      }
+    }
+    favorite {
+      favoriteUser {
+        id
+        name
+      }
+    }
+  }
+}
+    `;
+
+export function useGetUserPageQuery(options?: Omit<Urql.UseQueryArgs<GetUserPageQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetUserPageQuery>({ query: GetUserPageDocument, ...options });
+};
+export const GetUserProfileDocument = gql`
+    query GetUserProfile($id: String) {
+  getLoginUser: getUser {
+    id
+  }
+  getUser(id: $id) {
+    name
+  }
+  getProfile(userId: $id) {
+    bio
+    location
+    url
+  }
+  getFollowings(followerId: $id) {
+    followingId
+  }
+  getFollowers(followingId: $id) {
+    followerId
+  }
+}
+    `;
+
+export function useGetUserProfileQuery(options?: Omit<Urql.UseQueryArgs<GetUserProfileQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetUserProfileQuery>({ query: GetUserProfileDocument, ...options });
+};
 export const CreateFollowDocument = gql`
     mutation CreateFollow($followingId: String!) {
   createFollow(followingId: $followingId) {

@@ -1,12 +1,12 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import styled from "styled-components";
-import { TweetComposeBox } from "./tweetComposeBox";
-import { TweetItems } from "./tweetItems";
-import { useGetAllTweetsQuery } from "../generated/graphql";
+import { TweetComposeBox } from "../TweetCompose/tweetComposeBox";
+import { TweetItems } from "../Tweet/tweetItems";
+import { useGetGlobalTimelineQuery } from "../../generated/graphql";
 
 export const GlobalTL: React.FC = () => {
-  const [{ data, error }] = useGetAllTweetsQuery();
+  const [{ data, error }] = useGetGlobalTimelineQuery();
   if (error) throw new Error(error.message);
   const tweets = data?.getAllTweets;
 
