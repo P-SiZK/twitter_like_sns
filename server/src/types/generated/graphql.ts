@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+import { User as UserModel, Profile as ProfileModel, Tweet as TweetModel, Retweet as RetweetModel, Favorite as FavoriteModel, Follow as FollowModel, Timeline as TimelineModel } from '@prisma/client/index.d';
 import { Context } from '../context';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -246,34 +247,34 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
-  Favorite: ResolverTypeWrapper<Favorite>;
-  Follow: ResolverTypeWrapper<Follow>;
+  Favorite: ResolverTypeWrapper<FavoriteModel>;
+  Follow: ResolverTypeWrapper<FollowModel>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
-  Profile: ResolverTypeWrapper<Profile>;
+  Profile: ResolverTypeWrapper<ProfileModel>;
   Query: ResolverTypeWrapper<{}>;
-  Retweet: ResolverTypeWrapper<Retweet>;
+  Retweet: ResolverTypeWrapper<RetweetModel>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Timeline: ResolverTypeWrapper<Timeline>;
-  Tweet: ResolverTypeWrapper<Tweet>;
-  User: ResolverTypeWrapper<User>;
+  Timeline: ResolverTypeWrapper<TimelineModel>;
+  Tweet: ResolverTypeWrapper<TweetModel>;
+  User: ResolverTypeWrapper<UserModel>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean'];
   DateTime: Scalars['DateTime'];
-  Favorite: Favorite;
-  Follow: Follow;
+  Favorite: FavoriteModel;
+  Follow: FollowModel;
   Int: Scalars['Int'];
   Mutation: {};
-  Profile: Profile;
+  Profile: ProfileModel;
   Query: {};
-  Retweet: Retweet;
+  Retweet: RetweetModel;
   String: Scalars['String'];
-  Timeline: Timeline;
-  Tweet: Tweet;
-  User: User;
+  Timeline: TimelineModel;
+  Tweet: TweetModel;
+  User: UserModel;
 }>;
 
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {

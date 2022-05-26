@@ -9,6 +9,15 @@ generates:
     config:
       useIndexSignature: true
       contextType: ../context#Context
+      mapperTypeSuffix: Model
+      mappers:
+        User: "@prisma/client/index.d#User"
+        Profile: "@prisma/client/index.d#Profile"
+        Tweet: "@prisma/client/index.d#Tweet"
+        Retweet: "@prisma/client/index.d#Retweet"
+        Favorite: "@prisma/client/index.d#Favorite"
+        Follow: "@prisma/client/index.d#Follow"
+        Timeline: "@prisma/client/index.d#Timeline"
     plugins:
       - typescript
       - typescript-resolvers

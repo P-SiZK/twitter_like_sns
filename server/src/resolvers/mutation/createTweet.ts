@@ -32,8 +32,8 @@ export const createTweet: MutationResolvers["createTweet"] = async (
       timeline: {
         createMany: {
           data: timelines,
-        }
-      }
+        },
+      },
     },
     include: {
       author: true,
