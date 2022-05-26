@@ -22,10 +22,6 @@ export const getFollowings: QueryResolvers["getFollowings"] = async (
     where: {
       followerId,
     },
-    include: {
-      following: true,
-      follower: true,
-    },
   });
   return followings;
 };

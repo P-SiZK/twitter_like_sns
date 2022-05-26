@@ -22,12 +22,12 @@ type User {
   createdAt: DateTime!
   name: String!
   profile: Profile
-  tweets: [Tweet]
-  retweets: [Retweet]
-  favorites: [Favorite]
-  following: [Follow]
-  follower: [Follow]
-  timeline: [Timeline]
+  tweets: [Tweet!]!
+  retweets: [Retweet!]!
+  favorites: [Favorite!]!
+  following: [Follow!]!
+  follower: [Follow!]!
+  timeline: [Timeline!]!
 }
 
 type Profile {
@@ -47,9 +47,9 @@ type Tweet {
   content: String!
   author: User!
   authorId: String!
-  retweet: [Retweet]
-  favorite: [Favorite]
-  timeline: [Timeline]
+  retweet: [Retweet!]!
+  favorite: [Favorite!]!
+  timeline: [Timeline!]!
 }
 
 type Retweet {

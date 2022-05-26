@@ -19,9 +19,6 @@ export const getProfile: QueryResolvers["getProfile"] = async (
     where: {
       userId,
     },
-    include: {
-      user: true,
-    },
   });
   return profile;
 };

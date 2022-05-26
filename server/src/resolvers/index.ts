@@ -1,10 +1,12 @@
 import { Resolvers } from "../types/generated/graphql";
-import * as mutation from "./mutation";
-import * as query from "./query";
+import * as Mutation from "./mutation";
+import * as Query from "./query";
+import * as Trivials from "./trivials";
 import { dateTimeScalar } from "./scalar/date-time";
 
 export const resolvers: Resolvers = {
-  Query: query,
-  Mutation: mutation,
+  Query,
+  Mutation,
+  ...Trivials,
   DateTime: dateTimeScalar,
 };

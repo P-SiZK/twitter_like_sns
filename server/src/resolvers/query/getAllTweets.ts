@@ -6,9 +6,6 @@ export const getAllTweets: QueryResolvers["getAllTweets"] = async () => {
     orderBy: {
       createdAt: "desc",
     },
-    include: {
-      author: true,
-    },
   });
   return tweets;
 };

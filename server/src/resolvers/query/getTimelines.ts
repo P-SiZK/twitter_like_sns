@@ -19,14 +19,6 @@ export const getTimelines: QueryResolvers["getTimelines"] = async (
     where: {
       userId,
     },
-    include: {
-      user: true,
-      tweet: {
-        include: {
-          author: true,
-        },
-      },
-    },
   });
   return timelines;
 };

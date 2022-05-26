@@ -22,9 +22,6 @@ export const getTweets: QueryResolvers["getTweets"] = async (
     where: {
       authorId,
     },
-    include: {
-      author: true,
-    },
   });
   return tweets;
 };

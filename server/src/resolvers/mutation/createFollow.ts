@@ -27,10 +27,6 @@ export const createFollow: MutationResolvers["createFollow"] = async (
       followingId: args.followingId,
       followerId: userId,
     },
-    include: {
-      following: true,
-      follower: true,
-    },
   });
   return follow;
 };

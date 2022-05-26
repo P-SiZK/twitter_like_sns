@@ -35,9 +35,6 @@ export const createTweet: MutationResolvers["createTweet"] = async (
         },
       },
     },
-    include: {
-      author: true,
-    },
   });
 
   return tweet;

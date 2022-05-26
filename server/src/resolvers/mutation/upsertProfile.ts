@@ -31,9 +31,6 @@ export const upsertProfile: MutationResolvers["upsertProfile"] = async (
       location,
       url,
     },
-    include: {
-      user: true,
-    },
   });
   return profile;
 };

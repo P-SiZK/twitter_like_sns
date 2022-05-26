@@ -29,10 +29,6 @@ export const deleteFollow: MutationResolvers["deleteFollow"] = async (
         followerId: userId,
       },
     },
-    include: {
-      following: true,
-      follower: true,
-    },
   });
   return follow;
 };
