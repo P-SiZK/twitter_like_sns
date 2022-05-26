@@ -150,7 +150,6 @@ export type Timeline = {
 
 export type Tweet = {
   __typename?: 'Tweet';
-  Timeline?: Maybe<Array<Maybe<Timeline>>>;
   author: User;
   authorId: Scalars['String'];
   content: Scalars['String'];
@@ -158,11 +157,11 @@ export type Tweet = {
   favorite?: Maybe<Array<Maybe<Favorite>>>;
   id: Scalars['String'];
   retweet?: Maybe<Array<Maybe<Retweet>>>;
+  timeline?: Maybe<Array<Maybe<Timeline>>>;
 };
 
 export type User = {
   __typename?: 'User';
-  Timeline?: Maybe<Array<Maybe<Timeline>>>;
   createdAt: Scalars['DateTime'];
   favorites?: Maybe<Array<Maybe<Favorite>>>;
   follower?: Maybe<Array<Maybe<Follow>>>;
@@ -171,6 +170,7 @@ export type User = {
   name: Scalars['String'];
   profile?: Maybe<Profile>;
   retweets?: Maybe<Array<Maybe<Retweet>>>;
+  timeline?: Maybe<Array<Maybe<Timeline>>>;
   tweets?: Maybe<Array<Maybe<Tweet>>>;
 };
 
@@ -353,7 +353,6 @@ export type TimelineResolvers<ContextType = Context, ParentType extends Resolver
 }>;
 
 export type TweetResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Tweet'] = ResolversParentTypes['Tweet']> = ResolversObject<{
-  Timeline?: Resolver<Maybe<Array<Maybe<ResolversTypes['Timeline']>>>, ParentType, ContextType>;
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   authorId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -361,11 +360,11 @@ export type TweetResolvers<ContextType = Context, ParentType extends ResolversPa
   favorite?: Resolver<Maybe<Array<Maybe<ResolversTypes['Favorite']>>>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   retweet?: Resolver<Maybe<Array<Maybe<ResolversTypes['Retweet']>>>, ParentType, ContextType>;
+  timeline?: Resolver<Maybe<Array<Maybe<ResolversTypes['Timeline']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
-  Timeline?: Resolver<Maybe<Array<Maybe<ResolversTypes['Timeline']>>>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   favorites?: Resolver<Maybe<Array<Maybe<ResolversTypes['Favorite']>>>, ParentType, ContextType>;
   follower?: Resolver<Maybe<Array<Maybe<ResolversTypes['Follow']>>>, ParentType, ContextType>;
@@ -374,6 +373,7 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   profile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType>;
   retweets?: Resolver<Maybe<Array<Maybe<ResolversTypes['Retweet']>>>, ParentType, ContextType>;
+  timeline?: Resolver<Maybe<Array<Maybe<ResolversTypes['Timeline']>>>, ParentType, ContextType>;
   tweets?: Resolver<Maybe<Array<Maybe<ResolversTypes['Tweet']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;

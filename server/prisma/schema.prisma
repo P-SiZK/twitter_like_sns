@@ -18,7 +18,7 @@ model User {
   favorites Favorite[]
   following Follow[]   @relation("following")
   follower  Follow[]   @relation("follower")
-  Timeline  Timeline[]
+  timeline  Timeline[]
 }
 
 model Profile {
@@ -40,7 +40,7 @@ model Tweet {
   authorId  String
   retweet   Retweet[]
   favorite  Favorite[]
-  Timeline  Timeline[]
+  timeline  Timeline[]
 }
 
 model Retweet {

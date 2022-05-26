@@ -143,7 +143,6 @@ export type Timeline = {
 };
 
 export type Tweet = {
-  Timeline?: Maybe<Array<Maybe<Timeline>>>;
   author: User;
   authorId: Scalars['String'];
   content: Scalars['String'];
@@ -151,10 +150,10 @@ export type Tweet = {
   favorite?: Maybe<Array<Maybe<Favorite>>>;
   id: Scalars['String'];
   retweet?: Maybe<Array<Maybe<Retweet>>>;
+  timeline?: Maybe<Array<Maybe<Timeline>>>;
 };
 
 export type User = {
-  Timeline?: Maybe<Array<Maybe<Timeline>>>;
   createdAt: Scalars['DateTime'];
   favorites?: Maybe<Array<Maybe<Favorite>>>;
   follower?: Maybe<Array<Maybe<Follow>>>;
@@ -163,6 +162,7 @@ export type User = {
   name: Scalars['String'];
   profile?: Maybe<Profile>;
   retweets?: Maybe<Array<Maybe<Retweet>>>;
+  timeline?: Maybe<Array<Maybe<Timeline>>>;
   tweets?: Maybe<Array<Maybe<Tweet>>>;
 };
 

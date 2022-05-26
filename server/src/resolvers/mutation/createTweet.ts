@@ -29,7 +29,7 @@ export const createTweet: MutationResolvers["createTweet"] = async (
     data: {
       content: args.content,
       authorId: userId,
-      Timeline: {
+      timeline: {
         createMany: {
           data: timelines,
         }

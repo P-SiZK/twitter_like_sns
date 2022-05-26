@@ -27,7 +27,7 @@ type User {
   favorites: [Favorite]
   following: [Follow]
   follower: [Follow]
-  Timeline: [Timeline]
+  timeline: [Timeline]
 }
 
 type Profile {
@@ -49,7 +49,7 @@ type Tweet {
   authorId: String!
   retweet: [Retweet]
   favorite: [Favorite]
-  Timeline: [Timeline]
+  timeline: [Timeline]
 }
 
 type Retweet {
