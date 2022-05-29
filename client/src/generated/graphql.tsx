@@ -147,23 +147,23 @@ export type Tweet = {
   authorId: Scalars['String'];
   content: Scalars['String'];
   createdAt: Scalars['DateTime'];
-  favorite?: Maybe<Array<Maybe<Favorite>>>;
+  favorite: Array<Favorite>;
   id: Scalars['String'];
-  retweet?: Maybe<Array<Maybe<Retweet>>>;
-  timeline?: Maybe<Array<Maybe<Timeline>>>;
+  retweet: Array<Retweet>;
+  timeline: Array<Timeline>;
 };
 
 export type User = {
   createdAt: Scalars['DateTime'];
-  favorites?: Maybe<Array<Maybe<Favorite>>>;
-  follower?: Maybe<Array<Maybe<Follow>>>;
-  following?: Maybe<Array<Maybe<Follow>>>;
+  favorites: Array<Favorite>;
+  follower: Array<Follow>;
+  following: Array<Follow>;
   id: Scalars['String'];
   name: Scalars['String'];
   profile?: Maybe<Profile>;
-  retweets?: Maybe<Array<Maybe<Retweet>>>;
-  timeline?: Maybe<Array<Maybe<Timeline>>>;
-  tweets?: Maybe<Array<Maybe<Tweet>>>;
+  retweets: Array<Retweet>;
+  timeline: Array<Timeline>;
+  tweets: Array<Tweet>;
 };
 
 export type GetSideNavigationQueryVariables = Exact<{ [key: string]: never; }>;
@@ -174,12 +174,12 @@ export type GetSideNavigationQuery = { getUser?: { id: string } | null };
 export type GetGlobalTimelineQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetGlobalTimelineQuery = { getAllTweets: Array<{ id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet?: Array<{ retweetUser: { id: string, name: string } } | null> | null, favorite?: Array<{ favoriteUser: { id: string, name: string } } | null> | null }> };
+export type GetGlobalTimelineQuery = { getAllTweets: Array<{ id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet: Array<{ retweetUser: { id: string, name: string } }>, favorite: Array<{ favoriteUser: { id: string, name: string } }> }> };
 
 export type GetHomeTimelineQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetHomeTimelineQuery = { getTimelines: Array<{ tweet: { id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet?: Array<{ retweetUser: { id: string, name: string } } | null> | null, favorite?: Array<{ favoriteUser: { id: string, name: string } } | null> | null } }> };
+export type GetHomeTimelineQuery = { getTimelines: Array<{ tweet: { id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet: Array<{ retweetUser: { id: string, name: string } }>, favorite: Array<{ favoriteUser: { id: string, name: string } }> } }> };
 
 export type GetTweetComposeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -191,6 +191,20 @@ export type GetSignupQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetSignupQuery = { getUser?: { id: string } | null };
 
+export type GetFollowersListQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetFollowersListQuery = { getUser?: { name: string } | null, getFollowers: Array<{ follower: { id: string, name: string, profile?: { bio?: string | null } | null } }> };
+
+export type GetFollowingListQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetFollowingListQuery = { getUser?: { name: string } | null, getFollowings: Array<{ following: { id: string, name: string, profile?: { bio?: string | null } | null } }> };
+
 export type GetProfileEditQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -201,7 +215,7 @@ export type GetUserPageQueryVariables = Exact<{
 }>;
 
 
-export type GetUserPageQuery = { getUser?: { id: string, name: string } | null, getTweets: Array<{ id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet?: Array<{ retweetUser: { id: string, name: string } } | null> | null, favorite?: Array<{ favoriteUser: { id: string, name: string } } | null> | null }> };
+export type GetUserPageQuery = { getUser?: { id: string, name: string } | null, getTweets: Array<{ id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet: Array<{ retweetUser: { id: string, name: string } }>, favorite: Array<{ favoriteUser: { id: string, name: string } }> }> };
 
 export type GetUserProfileQueryVariables = Exact<{
   id?: InputMaybe<Scalars['String']>;
@@ -258,7 +272,7 @@ export type UpsertProfileMutation = { upsertProfile?: { id: number } | null };
 export type GetAllTweetsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllTweetsQuery = { getAllTweets: Array<{ id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet?: Array<{ retweetUser: { id: string, name: string } } | null> | null, favorite?: Array<{ favoriteUser: { id: string, name: string } } | null> | null }> };
+export type GetAllTweetsQuery = { getAllTweets: Array<{ id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet: Array<{ retweetUser: { id: string, name: string } }>, favorite: Array<{ favoriteUser: { id: string, name: string } }> }> };
 
 export type GetFollowersQueryVariables = Exact<{
   followingId?: InputMaybe<Scalars['String']>;
@@ -284,14 +298,14 @@ export type GetProfileQuery = { getProfile?: { bio?: string | null, location?: s
 export type GetTimelinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTimelinesQuery = { getTimelines: Array<{ createdAt: any, userId: string, user: { name: string }, tweet: { id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet?: Array<{ retweetUser: { id: string, name: string } } | null> | null, favorite?: Array<{ favoriteUser: { id: string, name: string } } | null> | null } }> };
+export type GetTimelinesQuery = { getTimelines: Array<{ createdAt: any, userId: string, user: { name: string }, tweet: { id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet: Array<{ retweetUser: { id: string, name: string } }>, favorite: Array<{ favoriteUser: { id: string, name: string } }> } }> };
 
 export type GetTweetsQueryVariables = Exact<{
   authorId?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetTweetsQuery = { getTweets: Array<{ id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet?: Array<{ retweetUser: { id: string, name: string } } | null> | null, favorite?: Array<{ favoriteUser: { id: string, name: string } } | null> | null }> };
+export type GetTweetsQuery = { getTweets: Array<{ id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet: Array<{ retweetUser: { id: string, name: string } }>, favorite: Array<{ favoriteUser: { id: string, name: string } }> }> };
 
 export type GetUserQueryVariables = Exact<{
   id?: InputMaybe<Scalars['String']>;
@@ -393,6 +407,46 @@ export const GetSignupDocument = gql`
 
 export function useGetSignupQuery(options?: Omit<Urql.UseQueryArgs<GetSignupQueryVariables>, 'query'>) {
   return Urql.useQuery<GetSignupQuery>({ query: GetSignupDocument, ...options });
+};
+export const GetFollowersListDocument = gql`
+    query GetFollowersList($id: String) {
+  getUser(id: $id) {
+    name
+  }
+  getFollowers(followingId: $id) {
+    follower {
+      id
+      name
+      profile {
+        bio
+      }
+    }
+  }
+}
+    `;
+
+export function useGetFollowersListQuery(options?: Omit<Urql.UseQueryArgs<GetFollowersListQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetFollowersListQuery>({ query: GetFollowersListDocument, ...options });
+};
+export const GetFollowingListDocument = gql`
+    query GetFollowingList($id: String) {
+  getUser(id: $id) {
+    name
+  }
+  getFollowings(followerId: $id) {
+    following {
+      id
+      name
+      profile {
+        bio
+      }
+    }
+  }
+}
+    `;
+
+export function useGetFollowingListQuery(options?: Omit<Urql.UseQueryArgs<GetFollowingListQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetFollowingListQuery>({ query: GetFollowingListDocument, ...options });
 };
 export const GetProfileEditDocument = gql`
     query GetProfileEdit {

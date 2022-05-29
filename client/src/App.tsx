@@ -11,6 +11,8 @@ import { HomeTL } from "./components/Timeline/homeTimeline";
 import { UserPage } from "./components/UserPage/userPage";
 import { ProfileEdit } from "./components/UserPage/profileEdit";
 import { NotFound } from "./components/notFound";
+import { FollowingList } from "./components/UserPage/followingList";
+import { FollowersList } from "./components/UserPage/followersList";
 
 export const App: React.FC = () => {
   const location = useLocation();
@@ -35,6 +37,14 @@ export const App: React.FC = () => {
           <Route
             path="/:userId"
             element={<WithNavigation element={<UserPage />} />}
+          />
+          <Route
+            path="/:userId/following"
+            element={<WithNavigation element={<FollowingList />} />}
+          />
+          <Route
+            path="/:userId/followers"
+            element={<WithNavigation element={<FollowersList />} />}
           />
           <Route path="/logout" element={<Logout />} />
           <Route path="/signup" element={<Signup />} />

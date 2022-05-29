@@ -1,0 +1,14 @@
+query GetFollowingList($id: String) {
+  getUser(id: $id) {
+    name
+  }
+  getFollowings(followerId: $id) {
+    following {
+      id
+      name
+      profile {
+        bio
+      }
+    }
+  }
+}

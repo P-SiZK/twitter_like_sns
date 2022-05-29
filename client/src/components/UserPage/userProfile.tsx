@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   useCreateFollowMutation,
@@ -99,11 +99,11 @@ export const UserProfile: React.FC<Props> = ({ userId }) => {
         </UserInfo>
         {profile?.bio && <Bio>{profile?.bio}</Bio>}
         <FollowInfo>
-          <FollowingInfo>
+          <FollowingInfo to="following">
             <FollowingNumber>{followings?.length}</FollowingNumber>{" "}
             <FollowingString>フォロー中</FollowingString>
           </FollowingInfo>
-          <FollowerInfo>
+          <FollowerInfo to="followers">
             <FollowerNumber>{followers?.length}</FollowerNumber>{" "}
             <FollowerString>フォロワー</FollowerString>
           </FollowerInfo>
@@ -227,8 +227,13 @@ const FollowInfo = styled.div`
   display: flex;
 `;
 
-const FollowingInfo = styled.div`
+const FollowingInfo = styled(Link)`
+  text-decoration: none;
+  color: rgb(247, 249, 249);
   margin-right: 20px;
+  &:hover {
+    text-decoration-line: underline;
+  }
 `;
 
 const FollowingNumber = styled.span`
@@ -240,7 +245,13 @@ const FollowingString = styled.span`
   color: #8899a6;
 `;
 
-const FollowerInfo = styled.div``;
+const FollowerInfo = styled(Link)`
+  text-decoration: none;
+  color: rgb(247, 249, 249);
+  &:hover {
+    text-decoration-line: underline;
+  }
+`;
 
 const FollowerNumber = styled.span`
   font-weight: bold;
