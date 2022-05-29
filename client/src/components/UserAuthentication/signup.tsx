@@ -5,13 +5,13 @@ import {
   useGetSignupQuery,
   useCreateUserMutation,
 } from "../../generated/graphql";
+import { Loading } from "../loading";
 
 export const Signup: React.FC = () => {
   const navigate = useNavigate();
 
-  const [{ data, error }] = useGetSignupQuery();
+  const [{ data, fetching, error }] = useGetSignupQuery();
   if (error) throw new Error(error.message);
-  if (data?.getUser) navigate("/", { replace: true });
 
   const [, createUserMutation] = useCreateUserMutation();
 
@@ -33,6 +33,9 @@ export const Signup: React.FC = () => {
     });
     navigate("/", { replace: true });
   };
+
+  if (fetching) return <Loading />
+  if (data?.getUser) navigate("/", { replace: true });
 
   return (
     <ModalOverlay>
