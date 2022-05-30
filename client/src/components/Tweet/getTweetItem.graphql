@@ -1,0 +1,5 @@
+query GetTweetItem {
+  getUser {
+    id
+  }
+}

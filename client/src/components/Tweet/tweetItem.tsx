@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Tweet } from "./tweet";
@@ -8,6 +8,11 @@ import { ReactComponent as AfterRetweetIcon } from "../../images/retweet_after.s
 import { ReactComponent as FavoriteIcon } from "../../images/favorite_before.svg";
 import { ReactComponent as AfterFavoriteIcon } from "../../images/favorite_after.svg";
 import { ReactComponent as ShareIcon } from "../../images/share.svg";
+import {
+  useCreateFavoriteMutation,
+  useDeleteFavoriteMutation,
+  useGetTweetItemQuery,
+} from "../../generated/graphql";
 
 type TweetProps = {
   tweet: Tweet;
@@ -23,6 +28,9 @@ export const TweetItem: React.FC<TweetProps> = ({ tweet }) => {
   const [isRetweet, setIsRetweet] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
+  const [, createFavoriteMutation] = useCreateFavoriteMutation();
+  const [, deleteFavoriteMutation] = useDeleteFavoriteMutation();
+
   // 実際はリプライが投稿されてから増えるが、取り敢えず…
   const onReplyClick = () => {
     setReplyCount(replyCount + 1);
@@ -31,10 +39,29 @@ export const TweetItem: React.FC<TweetProps> = ({ tweet }) => {
     setRetweetCount(retweetCount + (isRetweet ? -1 : 1));
     setIsRetweet(!isRetweet);
   };
-  const onFavoriteClick = () => {
-    setFavoriteCount(favoriteCount + (isFavorite ? -1 : 1));
-    setIsFavorite(!isFavorite);
+  const onFavoriteClick = async () => {
+    if (isFavorite) {
+      const { error } = await deleteFavoriteMutation({ tweetId: tweet.id });
+      if (error) throw new Error(error.message);
+      setFavoriteCount(favoriteCount - 1);
+      setIsFavorite(false);
+    } else {
+      const { error } = await createFavoriteMutation({ tweetId: tweet.id });
+      if (error) throw new Error(error.message);
+      setFavoriteCount(favoriteCount + 1);
+      setIsFavorite(true);
+    }
   };
+
+  const [{ data, error }] = useGetTweetItemQuery();
+  if (error) throw new Error(error.message);
+  const userId = data?.getUser?.id;
+
+  useEffect(() => {
+    if (tweet.favorite?.find((v) => v?.favoriteUser.id === userId))
+      setIsFavorite(true);
+    setFavoriteCount(tweet.favorite?.length || 0);
+  }, [userId, tweet]);
 
   const redirectUserProfile = () => {
     const userLink = `/${tweet.authorId}`;

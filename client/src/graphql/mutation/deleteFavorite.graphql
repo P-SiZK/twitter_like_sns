@@ -1,0 +1,5 @@
+mutation DeleteFavorite($tweetId: String!) {
+  deleteFavorite(tweetId: $tweetId) {
+    id
+  }
+}

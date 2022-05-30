@@ -13,6 +13,8 @@ type Mutation {
   updateUser(name: String): User!
   upsertProfile(bio: String, location: String, url: String): Profile
   createTweet(content: String!): Tweet!
+  createFavorite(tweetId: String!): Favorite!
+  deleteFavorite(tweetId: String!): Favorite!
   createFollow(followingId: String!): Follow!
   deleteFollow(followingId: String!): Follow!
 }

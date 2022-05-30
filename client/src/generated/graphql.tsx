@@ -37,12 +37,19 @@ export type Follow = {
 };
 
 export type Mutation = {
+  createFavorite: Favorite;
   createFollow: Follow;
   createTweet: Tweet;
   createUser: User;
+  deleteFavorite: Favorite;
   deleteFollow: Follow;
   updateUser: User;
   upsertProfile?: Maybe<Profile>;
+};
+
+
+export type MutationCreateFavoriteArgs = {
+  tweetId: Scalars['String'];
 };
 
 
@@ -59,6 +66,11 @@ export type MutationCreateTweetArgs = {
 export type MutationCreateUserArgs = {
   id: Scalars['String'];
   name: Scalars['String'];
+};
+
+
+export type MutationDeleteFavoriteArgs = {
+  tweetId: Scalars['String'];
 };
 
 
@@ -181,6 +193,11 @@ export type GetHomeTimelineQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetHomeTimelineQuery = { getTimelines: Array<{ tweet: { id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet: Array<{ retweetUser: { id: string, name: string } }>, favorite: Array<{ favoriteUser: { id: string, name: string } }> } }> };
 
+export type GetTweetItemQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTweetItemQuery = { getUser?: { id: string } | null };
+
 export type GetTweetComposeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -224,6 +241,13 @@ export type GetUserProfileQueryVariables = Exact<{
 
 export type GetUserProfileQuery = { getLoginUser?: { id: string } | null, getUser?: { name: string } | null, getProfile?: { bio?: string | null, location?: string | null, url?: string | null } | null, getFollowings: Array<{ followingId: string }>, getFollowers: Array<{ followerId: string }> };
 
+export type CreateFavoriteMutationVariables = Exact<{
+  tweetId: Scalars['String'];
+}>;
+
+
+export type CreateFavoriteMutation = { createFavorite: { id: number } };
+
 export type CreateFollowMutationVariables = Exact<{
   followingId: Scalars['String'];
 }>;
@@ -245,6 +269,13 @@ export type CreateUserMutationVariables = Exact<{
 
 
 export type CreateUserMutation = { createUser: { id: string } };
+
+export type DeleteFavoriteMutationVariables = Exact<{
+  tweetId: Scalars['String'];
+}>;
+
+
+export type DeleteFavoriteMutation = { deleteFavorite: { id: number } };
 
 export type DeleteFollowMutationVariables = Exact<{
   followingId: Scalars['String'];
@@ -386,6 +417,17 @@ export const GetHomeTimelineDocument = gql`
 export function useGetHomeTimelineQuery(options?: Omit<Urql.UseQueryArgs<GetHomeTimelineQueryVariables>, 'query'>) {
   return Urql.useQuery<GetHomeTimelineQuery>({ query: GetHomeTimelineDocument, ...options });
 };
+export const GetTweetItemDocument = gql`
+    query GetTweetItem {
+  getUser {
+    id
+  }
+}
+    `;
+
+export function useGetTweetItemQuery(options?: Omit<Urql.UseQueryArgs<GetTweetItemQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetTweetItemQuery>({ query: GetTweetItemDocument, ...options });
+};
 export const GetTweetComposeDocument = gql`
     query GetTweetCompose {
   getUser {
@@ -523,6 +565,17 @@ export const GetUserProfileDocument = gql`
 export function useGetUserProfileQuery(options?: Omit<Urql.UseQueryArgs<GetUserProfileQueryVariables>, 'query'>) {
   return Urql.useQuery<GetUserProfileQuery>({ query: GetUserProfileDocument, ...options });
 };
+export const CreateFavoriteDocument = gql`
+    mutation CreateFavorite($tweetId: String!) {
+  createFavorite(tweetId: $tweetId) {
+    id
+  }
+}
+    `;
+
+export function useCreateFavoriteMutation() {
+  return Urql.useMutation<CreateFavoriteMutation, CreateFavoriteMutationVariables>(CreateFavoriteDocument);
+};
 export const CreateFollowDocument = gql`
     mutation CreateFollow($followingId: String!) {
   createFollow(followingId: $followingId) {
@@ -560,6 +613,17 @@ export const CreateUserDocument = gql`
 
 export function useCreateUserMutation() {
   return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument);
+};
+export const DeleteFavoriteDocument = gql`
+    mutation DeleteFavorite($tweetId: String!) {
+  deleteFavorite(tweetId: $tweetId) {
+    id
+  }
+}
+    `;
+
+export function useDeleteFavoriteMutation() {
+  return Urql.useMutation<DeleteFavoriteMutation, DeleteFavoriteMutationVariables>(DeleteFavoriteDocument);
 };
 export const DeleteFollowDocument = gql`
     mutation DeleteFollow($followingId: String!) {

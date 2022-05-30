@@ -40,12 +40,19 @@ export type Follow = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createFavorite: Favorite;
   createFollow: Follow;
   createTweet: Tweet;
   createUser: User;
+  deleteFavorite: Favorite;
   deleteFollow: Follow;
   updateUser: User;
   upsertProfile?: Maybe<Profile>;
+};
+
+
+export type MutationCreateFavoriteArgs = {
+  tweetId: Scalars['String'];
 };
 
 
@@ -62,6 +69,11 @@ export type MutationCreateTweetArgs = {
 export type MutationCreateUserArgs = {
   id: Scalars['String'];
   name: Scalars['String'];
+};
+
+
+export type MutationDeleteFavoriteArgs = {
+  tweetId: Scalars['String'];
 };
 
 
@@ -303,9 +315,11 @@ export type FollowResolvers<ContextType = Context, ParentType extends ResolversP
 }>;
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  createFavorite?: Resolver<ResolversTypes['Favorite'], ParentType, ContextType, RequireFields<MutationCreateFavoriteArgs, 'tweetId'>>;
   createFollow?: Resolver<ResolversTypes['Follow'], ParentType, ContextType, RequireFields<MutationCreateFollowArgs, 'followingId'>>;
   createTweet?: Resolver<ResolversTypes['Tweet'], ParentType, ContextType, RequireFields<MutationCreateTweetArgs, 'content'>>;
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'id' | 'name'>>;
+  deleteFavorite?: Resolver<ResolversTypes['Favorite'], ParentType, ContextType, RequireFields<MutationDeleteFavoriteArgs, 'tweetId'>>;
   deleteFollow?: Resolver<ResolversTypes['Follow'], ParentType, ContextType, RequireFields<MutationDeleteFollowArgs, 'followingId'>>;
   updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, Partial<MutationUpdateUserArgs>>;
   upsertProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, Partial<MutationUpsertProfileArgs>>;

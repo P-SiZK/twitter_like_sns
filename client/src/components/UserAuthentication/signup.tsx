@@ -34,7 +34,7 @@ export const Signup: React.FC = () => {
     navigate("/", { replace: true });
   };
 
-  if (fetching) return <Loading />
+  if (fetching) return <Loading />;
   if (data?.getUser) navigate("/", { replace: true });
 
   return (

@@ -1,0 +1,5 @@
+mutation CreateFavorite($tweetId: String!) {
+  createFavorite(tweetId: $tweetId) {
+    id
+  }
+}
