@@ -103,12 +103,18 @@ export type Profile = {
 
 export type Query = {
   getAllTweets: Array<Tweet>;
+  getFavorites: Array<Favorite>;
   getFollowers: Array<Follow>;
   getFollowings: Array<Follow>;
   getProfile?: Maybe<Profile>;
   getTimelines: Array<Timeline>;
   getTweets: Array<Tweet>;
   getUser?: Maybe<User>;
+};
+
+
+export type QueryGetFavoritesArgs = {
+  tweetId: Scalars['String'];
 };
 
 
@@ -192,6 +198,13 @@ export type GetHomeTimelineQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetHomeTimelineQuery = { getTimelines: Array<{ tweet: { id: string, createdAt: any, content: string, authorId: string, author: { name: string }, retweet: Array<{ retweetUser: { id: string, name: string } }>, favorite: Array<{ favoriteUser: { id: string, name: string } }> } }> };
+
+export type GetFavoritesListQueryVariables = Exact<{
+  tweetId: Scalars['String'];
+}>;
+
+
+export type GetFavoritesListQuery = { getFavorites: Array<{ favoriteUser: { id: string, name: string, profile?: { bio?: string | null } | null } }> };
 
 export type GetTweetItemQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -416,6 +429,23 @@ export const GetHomeTimelineDocument = gql`
 
 export function useGetHomeTimelineQuery(options?: Omit<Urql.UseQueryArgs<GetHomeTimelineQueryVariables>, 'query'>) {
   return Urql.useQuery<GetHomeTimelineQuery>({ query: GetHomeTimelineDocument, ...options });
+};
+export const GetFavoritesListDocument = gql`
+    query GetFavoritesList($tweetId: String!) {
+  getFavorites(tweetId: $tweetId) {
+    favoriteUser {
+      id
+      name
+      profile {
+        bio
+      }
+    }
+  }
+}
+    `;
+
+export function useGetFavoritesListQuery(options: Omit<Urql.UseQueryArgs<GetFavoritesListQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetFavoritesListQuery>({ query: GetFavoritesListDocument, ...options });
 };
 export const GetTweetItemDocument = gql`
     query GetTweetItem {

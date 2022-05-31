@@ -13,6 +13,7 @@ import { ProfileEdit } from "./components/UserPage/profileEdit";
 import { NotFound } from "./components/notFound";
 import { FollowingList } from "./components/UserPage/followingList";
 import { FollowersList } from "./components/UserPage/followersList";
+import { FavoritersList } from "./components/Tweet/favoritesList";
 
 export const App: React.FC = () => {
   const location = useLocation();
@@ -45,6 +46,10 @@ export const App: React.FC = () => {
           <Route
             path="/:userId/followers"
             element={<WithNavigation element={<FollowersList />} />}
+          />
+          <Route
+            path="/:userId/status/:tweetId/favorites"
+            element={<FavoritersList />}
           />
           <Route path="/logout" element={<Logout />} />
           <Route path="/signup" element={<Signup />} />

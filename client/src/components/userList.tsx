@@ -94,6 +94,5 @@ const UserID = styled.div`
 
 const UserBio = styled.div`
   overflow-wrap: break-word;
-  white-space: pre-wrap;
   word-wrap: break-word;
 `;

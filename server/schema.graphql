@@ -3,6 +3,7 @@ type Query {
   getProfile(userId: String): Profile
   getTweets(authorId: String): [Tweet!]!
   getAllTweets: [Tweet!]!
+  getFavorites(tweetId: String!): [Favorite!]!
   getFollowers(followingId: String): [Follow!]!
   getFollowings(followerId: String): [Follow!]!
   getTimelines: [Timeline!]!

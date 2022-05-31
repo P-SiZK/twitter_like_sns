@@ -1,0 +1,11 @@
+query GetFavoritesList($tweetId: String!) {
+  getFavorites(tweetId: $tweetId) {
+    favoriteUser {
+      id
+      name
+      profile {
+        bio
+      }
+    }
+  }
+}
