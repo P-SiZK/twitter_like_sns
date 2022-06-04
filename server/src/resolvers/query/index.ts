@@ -1,3 +1,4 @@
+export { getTweet } from "./getTweet";
 export { getTweets } from "./getTweets";
 export { getAllTweets } from "./getAllTweets";
 export { getUser } from "./getUser";

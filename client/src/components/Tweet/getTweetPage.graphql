@@ -1,0 +1,19 @@
+query GetTweetPage($id: String!) {
+  getUser {
+    id
+  }
+  getTweet(id: $id) {
+    createdAt
+    content
+    author {
+      name
+    }
+    authorId
+    retweet {
+      retweetUserId
+    }
+    favorite {
+      favoriteUserId
+    }
+  }
+}

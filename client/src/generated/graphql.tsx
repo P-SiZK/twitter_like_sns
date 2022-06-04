@@ -108,6 +108,7 @@ export type Query = {
   getFollowings: Array<Follow>;
   getProfile?: Maybe<Profile>;
   getTimelines: Array<Timeline>;
+  getTweet: Tweet;
   getTweets: Array<Tweet>;
   getUser?: Maybe<User>;
 };
@@ -130,6 +131,11 @@ export type QueryGetFollowingsArgs = {
 
 export type QueryGetProfileArgs = {
   userId?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryGetTweetArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -210,6 +216,13 @@ export type GetTweetItemQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetTweetItemQuery = { getUser?: { id: string } | null };
+
+export type GetTweetPageQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type GetTweetPageQuery = { getUser?: { id: string } | null, getTweet: { createdAt: any, content: string, authorId: string, author: { name: string }, retweet: Array<{ retweetUserId: string }>, favorite: Array<{ favoriteUserId: string }> } };
 
 export type GetTweetComposeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -457,6 +470,31 @@ export const GetTweetItemDocument = gql`
 
 export function useGetTweetItemQuery(options?: Omit<Urql.UseQueryArgs<GetTweetItemQueryVariables>, 'query'>) {
   return Urql.useQuery<GetTweetItemQuery>({ query: GetTweetItemDocument, ...options });
+};
+export const GetTweetPageDocument = gql`
+    query GetTweetPage($id: String!) {
+  getUser {
+    id
+  }
+  getTweet(id: $id) {
+    createdAt
+    content
+    author {
+      name
+    }
+    authorId
+    retweet {
+      retweetUserId
+    }
+    favorite {
+      favoriteUserId
+    }
+  }
+}
+    `;
+
+export function useGetTweetPageQuery(options: Omit<Urql.UseQueryArgs<GetTweetPageQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetTweetPageQuery>({ query: GetTweetPageDocument, ...options });
 };
 export const GetTweetComposeDocument = gql`
     query GetTweetCompose {

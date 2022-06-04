@@ -11,7 +11,7 @@ type Params = {
   tweetId: string;
 };
 
-export const FavoritersList: React.FC = () => {
+export const FavoritesList: React.FC = () => {
   const navigate = useNavigate();
 
   const { tweetId } = useParams<Params>() as Params;

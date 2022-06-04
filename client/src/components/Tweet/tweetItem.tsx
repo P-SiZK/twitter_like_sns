@@ -32,14 +32,17 @@ export const TweetItem: React.FC<TweetProps> = ({ tweet }) => {
   const [, deleteFavoriteMutation] = useDeleteFavoriteMutation();
 
   // 実際はリプライが投稿されてから増えるが、取り敢えず…
-  const onReplyClick = () => {
+  const onReplyClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setReplyCount(replyCount + 1);
   };
-  const onRetweetClick = () => {
+  const onRetweetClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setRetweetCount(retweetCount + (isRetweet ? -1 : 1));
     setIsRetweet(!isRetweet);
   };
-  const onFavoriteClick = async () => {
+  const onFavoriteClick = async (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (isFavorite) {
       const { error } = await deleteFavoriteMutation({ tweetId: tweet.id });
       if (error) throw new Error(error.message);
@@ -63,7 +66,8 @@ export const TweetItem: React.FC<TweetProps> = ({ tweet }) => {
     setFavoriteCount(tweet.favorite?.length || 0);
   }, [userId, tweet]);
 
-  const redirectUserProfile = () => {
+  const redirectUserProfile = (e: React.MouseEvent) => {
+    e.stopPropagation();
     const userLink = `/${tweet.authorId}`;
     if (location.pathname === userLink) {
       window.scrollTo({
@@ -76,7 +80,7 @@ export const TweetItem: React.FC<TweetProps> = ({ tweet }) => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper onClick={() => navigate(`status/${tweet.id}`)}>
       <TweetLabel />
       <TweetBox>
         <UserIcon>

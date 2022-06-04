@@ -1,6 +1,7 @@
 type Query {
   getUser(id: String): User
   getProfile(userId: String): Profile
+  getTweet(id: String!): Tweet!
   getTweets(authorId: String): [Tweet!]!
   getAllTweets: [Tweet!]!
   getFavorites(tweetId: String!): [Favorite!]!
